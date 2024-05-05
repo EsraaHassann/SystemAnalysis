@@ -10,18 +10,11 @@ using System.Windows.Forms;
 
 namespace System_analysis
 {
-    public partial class MainMenu : Form
+    public partial class SelectRoadmap : Form
     {
-        public MainMenu()
+        public SelectRoadmap()
         {
             InitializeComponent();
-        }
-
-        private void SelectRoadmap_Click(object sender, EventArgs e)
-        {
-            SelectRoadmap SelectRoadmapForm = new SelectRoadmap();
-            this.Hide();
-            SelectRoadmapForm.Show();
         }
     }
 }
