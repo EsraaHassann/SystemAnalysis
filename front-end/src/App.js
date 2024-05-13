@@ -1,5 +1,5 @@
 import "./App.css";
-import Header from "./components/common/header/Header";
+import Header from "./components/common/header/header";
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,7 +11,7 @@ import { StoreProvider } from "./store";
 import ProtectedRoute from "./ProtectedRoute";
 import About from "./components/about/About";
 import Contact from "./components/contact/Contact";
-import Footer from "./components/common/footer/Footer";
+import Footer from "./components/common/footer/footer";
 import Home from "./components/home/Home";
 import SIGNUP from "./components/sign-up/Sign-up";
 import LOGIN from "./components/Log-in/Log-in";

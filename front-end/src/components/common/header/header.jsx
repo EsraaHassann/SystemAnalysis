@@ -68,7 +68,7 @@ const Header = () => {
             </li>
             {renderNavigationItems()}
             <li>
-              <Link to="/courses">All Courses</Link>
+              <Link to="/courses">All Roadmaps</Link>
             </li>
             <li>
               <Link to="/about">About</Link>
