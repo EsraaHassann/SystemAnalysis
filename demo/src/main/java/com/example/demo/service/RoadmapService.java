@@ -4,13 +4,13 @@ import java.util.List;
 
 public interface RoadmapService {
 
-    public Roadmap createPost(Roadmap roadmap);
+    public Roadmap create(Roadmap roadmap);
 
-    public Roadmap getPost(Long id);
+    public Roadmap get(Long id);
 
-    public Roadmap updatePost(Roadmap coroadmapurse, Long id);
+    public Roadmap update(Roadmap roadmap, Long id);
 
-    public void deletePost(Long id);
+    public void delete(Long id);
 
-    public List<Roadmap> getAllPost();
+    public List<Roadmap> getAll();
 }
