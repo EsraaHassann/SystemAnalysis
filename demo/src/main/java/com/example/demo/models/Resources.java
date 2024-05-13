@@ -23,7 +23,6 @@ public class Resources {
     private String title;
     private String url;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "roadmap_step_id")
+    @ManyToOne
     private RoadmapSteps roadmapSteps;
 }

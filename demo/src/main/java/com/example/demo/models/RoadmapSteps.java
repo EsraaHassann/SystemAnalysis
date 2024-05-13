@@ -28,10 +28,9 @@ public class RoadmapSteps {
     private String title;
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "roadmap_id")
+    @ManyToOne
     private Roadmap roadmap;
 
-    @OneToMany(mappedBy = "roadmapStep", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
     private List<Resources> resources;
 }
