@@ -13,7 +13,7 @@ import {
 
 const MyRoadmaps = () => {
   const { id } = useParams();
-  const [courses, setCourses] = useState([]);
+  const [roadmaps, setRoadmaps] = useState([]);
 
 
 
@@ -39,10 +39,10 @@ const MyRoadmaps = () => {
   const handleCourseFetch = async () => {
     try {
       const response = await axios.get(
-        `${REST_API_BASE_URL}/instructor/courses/${id}`
+        `${REST_API_BASE_URL}/admin/roadmaps`
       );
       const courseData = response.data;
-      setCourses(courseData);
+      setRoadmaps(courseData);
     } catch (error) {
       console.error("Error fetching course data:", error);
     }
@@ -82,36 +82,35 @@ const MyRoadmaps = () => {
                 <tr>
                   <th scope="col">ID</th>
                   <th scope="col">Title</th>
-                  <th scope="col">Price</th>
-                  <th scope="col">Category</th>
-                  <th scope="col"># Videos</th>
+                  
+                  <th scope="col">Steps</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {courses.length === 0 ? (
+                {roadmaps.length === 0 ? (
                   <tr>
-                    <td colSpan="5">No courses found</td>
+                    <td colSpan="5">No roadmaps found</td>
                   </tr>
                 ) : (
-                  courses.map((course, index) => (
+                  roadmaps.map((course, index) => (
                     <tr key={course.id}>
                       <td>{index + 1}</td>
                       <td> {course.title}</td>
-                      <td>$ {course.price}</td>
-                      <td>{course.category.name}</td>
+                     
+                     
                       <td>
                       <Link
-                          to={`/instructor/my-course/play/${course.id}`}
+                          to={`/admin/create-steps/${course.id}`}
                            className="link-dark me-3"
                         >
-                          {course.courseMaterials.length}
+                          {course.steps.length}
                             <FontAwesomeIcon icon={faEye} />
                         </Link>
                      </td>
                       <td>
                         <Link
-                          to={`/instructor/upload-video/${course.id}`}
+                          to={`/admin/add-steps/${course.id}`}
                           className="link-dark me-3"
                         >
                           <FontAwesomeIcon icon={faPencilAlt} />

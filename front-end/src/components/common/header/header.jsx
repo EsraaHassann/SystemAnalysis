@@ -30,22 +30,11 @@ const Header = () => {
               <Link to="/admin/dashboard">Dashboard</Link>
             </li>
           );
-        case "INSTRUCTOR":
+        case "USER":
           return (
             <li>
               <Link to="/instructor/dashboard">Dashboard</Link>
             </li>
-          );
-        case "STUDENT":
-          return (
-            <>
-              <li>
-                <Link to="/student/dashboard">Dashboard</Link>
-              </li>
-              <li>
-                <CartItems />
-              </li>
-            </>
           );
         default:
           return null;
@@ -60,7 +49,7 @@ const Header = () => {
       <header>
         <nav className="flexSB">
           <ul
-            className={click ? "mobile-nav" : "flexSB "}
+            className={click ? "mobile-nav" : "flexSB"}
             onClick={() => setClick(false)}
           >
             <li>

@@ -9,4 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface RoadmapRepository extends JpaRepository<Roadmap, Long> {
     List<Roadmap> findAllById(Long id);
     List<Roadmap> findByTitleContainingIgnoreCase(String title);
+    List<Roadmap> findByApprovedTrue();
 }

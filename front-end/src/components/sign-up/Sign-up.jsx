@@ -13,7 +13,6 @@ const SignUp = () => {
   const [gender, setGender] = useState("");
   const [dob, setDob] = useState("");
   const [phone, setPhone] = useState("");
-  const [role, setRole] = useState(""); // Added role state
   const [successMessage, setSuccessMessage] = useState("");
   const [errors, setErrors] = useState({});
 
@@ -29,7 +28,6 @@ const SignUp = () => {
       gender: "gender",
       dob: "dob",
       phone: "phone",
-      role: "role", // Added rule for role
     };
 
     // Perform validation
@@ -75,9 +73,7 @@ const SignUp = () => {
       case "phone":
         setPhone(value);
         break;
-      case "role":
-        setRole(value);
-        break; // Added case for role
+     
       default:
         break;
     }
@@ -101,7 +97,6 @@ const SignUp = () => {
         gender,
         dob,
         phone,
-        role,
       });
       console.log(response.data);
       setSuccessMessage("Sign up successful.");
@@ -112,7 +107,6 @@ const SignUp = () => {
       setGender("");
       setDob("");
       setPhone("");
-      setRole("");
       navigate("/login");
     } catch (error) {
       console.error("Sign up failed:", error);
@@ -243,26 +237,7 @@ const SignUp = () => {
               <div className="error text-danger">{errors.phone}</div>
             )}
           </div>
-          {/* New field for role */}
-          <div className="mb-3">
-            <label htmlFor="role" className="form-label">
-              Role:
-            </label>
-            <select
-              className="form-select"
-              id="role"
-              name="role"
-              value={role}
-              onChange={handleChange}
-            >
-              <option value="">Select Role</option>
-              <option value="STUDENT">Student</option>
-              <option value="INSTRUCTOR">Instructor</option>
-            </select>
-            {errors.role && (
-              <div className="error text-danger">{errors.role}</div>
-            )}
-          </div>
+         
           {/* Rest of the form */}
           <button type="submit" className="btn btn-primary">
             Sign Up

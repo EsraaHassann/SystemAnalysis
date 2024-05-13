@@ -78,7 +78,7 @@ function App() {
                 <Route path="createroadmap" element={<CreateRoadmap />} />
                 <Route path="roadmaps/:id" element={<MyRoadmaps />} />
                 <Route path="roadmap/steps/:id" element={<AllSteps />} />
-                <Route path="create-steps/" element={<CreateSteps />} />
+                <Route path="create-steps/:id" element={<CreateSteps />} />
                 
 
 

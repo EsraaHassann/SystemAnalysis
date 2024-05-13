@@ -10,27 +10,11 @@ const CreateRoadmap = () => {
   const [courseData, setCourseData] = useState({
     title: "",
     description: "",
-    tags: "",
-    price: "",
-    categoryId: "", // Assuming categoryId is the ID of the category for the course
+  // Assuming categoryId is the ID of the category for the course
   });
 
   // Define predefined categories directly in the frontend
-  const [categories, setCategories] = useState([
-    { id: 1, name: "Computer Science" },
-    { id: 2, name: "UI/UX Design" },
-    { id: 3, name: "Art & Design" },
-    { id: 4, name: "History & Archeology" },
-    { id: 5, name: "Software Engineering" },
-    { id: 6, name: "Information Software" },
-    { id: 7, name: "Health & Fitness" },
-    { id: 8, name: "Marketing" },
-    { id: 9, name: "Graphic Design" },
-    { id: 10, name: "Music" },
-    { id: 11, name: "Business Administration" },
-    { id: 12, name: "Web Management" },
-    // Add more categories as needed
-  ]);
+ 
   
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
@@ -54,12 +38,6 @@ const CreateRoadmap = () => {
         return !value.trim() ? "Title is required." : "";
       case "description":
         return !value.trim() ? "Description is required." : "";
-      case "tags":
-        return !value.trim() ? "Tags are required." : "";
-      case "price":
-        return isNaN(value) ? "Price must be a number." : "";
-      case "categoryId":
-        return !value ? "Category is required." : "";
       default:
         return "";
     }
@@ -79,7 +57,7 @@ const CreateRoadmap = () => {
     }
     try {
       const response = await axios.post(
-        `${REST_API_BASE_URL}/instructor/createcourse?categoryId=${courseData.categoryId}&useId=${userInfo.id}`,
+        `${REST_API_BASE_URL}/admin/create/roadmap/${userInfo.id}`,
         courseData
       );
       console.log("Course created:", response.data);
@@ -87,9 +65,7 @@ const CreateRoadmap = () => {
       setCourseData({
         title: "",
         description: "",
-        tags: "",
-        price: "",
-        categoryId: "",
+        
       });
     } catch (error) {
       console.error("Error creating course:", error);
@@ -135,9 +111,6 @@ const CreateRoadmap = () => {
               />
               {errors.description && <div className="error text-danger">{errors.description}</div>}
             </div>
-           
-           
-            
             <button type="submit" className="btn btn-primary">
               create new roadmap
             </button>
