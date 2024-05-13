@@ -24,6 +24,7 @@ public class Roadmap {
 
     private String title;
     private String description;
+    private boolean approved;
 
     @OneToMany(mappedBy = "roadmap", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RoadmapSteps> steps;
