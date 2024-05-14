@@ -35,8 +35,8 @@ const MyRoadmaps = () => {
   const handleCourseFetch = async () => {
     try {
       const response = await axios.get(`${REST_API_BASE_URL}/admin/roadmaps`);
-      const courseData = response.data;
-      setRoadmaps(courseData);
+      const roadmapData = response.data;
+      setRoadmaps(roadmapData);
     } catch (error) {
       console.error("Error fetching course data:", error);
     }

@@ -3,12 +3,12 @@ import "./courses.css"
 import { online } from "../../dummydata"
 import Heading from "../common/heading/Heading"
 
-const OnlineCourses = () => {
+const OnlineRoadmaps = () => {
   return (
     <>
       <section className='online'>
         <div className='container'>
-          <Heading subtitle='COURSES' title='Browse Our Online Courses' />
+          <Heading subtitle='Roadmaps' title='Browse Our Online Roadmaps' />
           <div className='content grid3'>
             {online.map((val) => (
               <div className='box'>
@@ -27,4 +27,4 @@ const OnlineCourses = () => {
   )
 }
 
-export default OnlineCourses
+export default OnlineRoadmaps

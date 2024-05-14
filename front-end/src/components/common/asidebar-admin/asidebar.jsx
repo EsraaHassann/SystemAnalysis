@@ -52,7 +52,7 @@ const Aside_Admin = () => {
               <span className="iconn">
                 <ion-icon name="home-outline"></ion-icon>
               </span>
-              <span className="title">Students</span>
+              <span className="title">users</span>
             </Link>
           </li>
           <li onClick={handleMouseOver}>
@@ -60,7 +60,7 @@ const Aside_Admin = () => {
               <span className="iconn">
                 <ion-icon name="home-outline"></ion-icon>
               </span>
-              <span className="title">Add Student</span>
+              <span className="title">Add user</span>
             </Link>
           </li>
           <li onClick={handleMouseOver}>
