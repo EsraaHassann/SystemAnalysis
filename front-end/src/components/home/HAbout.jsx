@@ -1,7 +1,7 @@
 import React from "react";
-import OnlineCourses from "../allcourses/OnlineCourses";
+import OnlineCourses from "../allroadmaps/OnlineCourses";
 import Heading from "../common/heading/Heading";
-import "../allcourses/courses.css";
+import "../allroadmaps/courses.css";
 import { coursesCard } from "../../dummydata";
 
 const HAbout = () => {
