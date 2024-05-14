@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import { REST_API_BASE_URL } from "./../../../App";
+import { REST_API_BASE_URL } from "../../../App";
 import { Store } from "../../../store";
 
 const CreateRoadmap = () => {
@@ -10,12 +10,11 @@ const CreateRoadmap = () => {
   const [courseData, setCourseData] = useState({
     title: "",
     description: "",
-  // Assuming categoryId is the ID of the category for the course
+    // Assuming categoryId is the ID of the category for the course
   });
 
   // Define predefined categories directly in the frontend
- 
-  
+
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -65,7 +64,6 @@ const CreateRoadmap = () => {
       setCourseData({
         title: "",
         description: "",
-        
       });
     } catch (error) {
       console.error("Error creating course:", error);
@@ -96,7 +94,9 @@ const CreateRoadmap = () => {
                 value={courseData.title}
                 onChange={handleChange}
               />
-              {errors.title && <div className="error text-danger">{errors.title}</div>}
+              {errors.title && (
+                <div className="error text-danger">{errors.title}</div>
+              )}
             </div>
             <div className="mb-3">
               <label htmlFor="description" className="form-label">
@@ -109,12 +109,16 @@ const CreateRoadmap = () => {
                 value={courseData.description}
                 onChange={handleChange}
               />
-              {errors.description && <div className="error text-danger">{errors.description}</div>}
+              {errors.description && (
+                <div className="error text-danger">{errors.description}</div>
+              )}
             </div>
             <button type="submit" className="btn btn-primary">
               create new roadmap
             </button>
-            {successMessage && <div className="alert alert-success mt-3">{successMessage}</div>}
+            {successMessage && (
+              <div className="alert alert-success mt-3">{successMessage}</div>
+            )}
           </form>
         </div>
       </div>

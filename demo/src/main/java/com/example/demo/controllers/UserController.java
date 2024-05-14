@@ -36,6 +36,7 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody User request) {
         return ResponseEntity.ok(authService.register(request));
@@ -75,7 +76,7 @@ public class UserController {
         }
     }
 
-        @GetMapping("/check-email/{email}")
+    @GetMapping("/check-email/{email}")
     public ResponseEntity<Boolean> checkEmailExists(@PathVariable String email) {
         Optional<User> user = userRepository.findByEmail(email);
         return ResponseEntity.ok(user.isPresent());

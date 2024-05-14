@@ -15,18 +15,16 @@ const MyRoadmaps = () => {
   const { id } = useParams();
   const [roadmaps, setRoadmaps] = useState([]);
 
-
-
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`${REST_API_BASE_URL}/instructor/delete/course/${id}`);
+      const response = await axios.delete(
+        `${REST_API_BASE_URL}/instructor/delete/course/${id}`
+      );
 
       if (response.status === 200) {
         // setSuccessMessage(`Instractor deleted successfully`);
-
-       // console.log("Instractor deleted successfully");
-        
-       // setInstractor(Instractor.filter((Student) => Student.id !== id));
+        // console.log("Instractor deleted successfully");
+        // setInstractor(Instractor.filter((Student) => Student.id !== id));
       } else {
         console.error("Failed to delete item");
       }
@@ -35,12 +33,9 @@ const MyRoadmaps = () => {
     }
   };
 
-
   const handleCourseFetch = async () => {
     try {
-      const response = await axios.get(
-        `${REST_API_BASE_URL}/admin/roadmaps`
-      );
+      const response = await axios.get(`${REST_API_BASE_URL}/admin/roadmaps`);
       const courseData = response.data;
       setRoadmaps(courseData);
     } catch (error) {
@@ -82,7 +77,7 @@ const MyRoadmaps = () => {
                 <tr>
                   <th scope="col">ID</th>
                   <th scope="col">Title</th>
-                  
+
                   <th scope="col">Steps</th>
                   <th scope="col">Actions</th>
                 </tr>
@@ -97,17 +92,15 @@ const MyRoadmaps = () => {
                     <tr key={course.id}>
                       <td>{index + 1}</td>
                       <td> {course.title}</td>
-                     
-                     
                       <td>
-                      <Link
+                        <Link
                           to={`/admin/create-steps/${course.id}`}
-                           className="link-dark me-3"
+                          className="link-dark me-3"
                         >
                           {course.steps.length}
-                            <FontAwesomeIcon icon={faEye} />
+                          <FontAwesomeIcon icon={faEye} />
                         </Link>
-                     </td>
+                      </td>
                       <td>
                         <Link
                           to={`/admin/add-steps/${course.id}`}
@@ -121,8 +114,10 @@ const MyRoadmaps = () => {
                         >
                           <FontAwesomeIcon icon={faEdit} />
                         </Link>
-                        <button className="btn"
-                          onClick={() => handleDelete(course.id)}>
+                        <button
+                          className="btn"
+                          onClick={() => handleDelete(course.id)}
+                        >
                           <FontAwesomeIcon icon={faTrash} />
                         </button>
                       </td>

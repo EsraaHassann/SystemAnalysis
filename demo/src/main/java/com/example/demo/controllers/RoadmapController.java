@@ -19,6 +19,7 @@ import com.example.demo.models.User;
 import com.example.demo.repository.RoadmapRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.RoadmapService;
+
 @CrossOrigin(origins = "http://localhost:3030")
 @RestController
 @RequestMapping("api/admin")
@@ -26,14 +27,11 @@ public class RoadmapController {
 
     @Autowired
     private RoadmapService roadmapService;
-    @Autowired 
+    @Autowired
     private RoadmapRepository roadmapRepository;
 
-    @Autowired 
+    @Autowired
     private UserRepository userRepository;
-
-
-
 
     @PostMapping("/create/roadmap/{userId}")
     public ResponseEntity<?> createRoadmap(@RequestBody Roadmap roadmap, @PathVariable("userId") Long userId) {
@@ -46,6 +44,7 @@ public class RoadmapController {
         Roadmap createdRoadmap = roadmapRepository.save(roadmap);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdRoadmap);
     }
+
     @GetMapping("/roadmaps")
     public ResponseEntity<List<Roadmap>> getAllApprovedRoadmaps() {
         List<Roadmap> roadmaps = roadmapRepository.findByApprovedTrue();
@@ -56,7 +55,7 @@ public class RoadmapController {
     }
     // @PostMapping("/create") @RequestParam("useId") Long useId
     // public Roadmap createRoadmap(@RequestBody Roadmap roadmap) {
-    //     return roadmapService.createRoadmap(roadmap);
+    // return roadmapService.createRoadmap(roadmap);
     // }
 
 }

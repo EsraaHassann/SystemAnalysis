@@ -34,10 +34,10 @@ import EditFormInstructor from "./components/admin-dashboaerd/Instructor/EditFor
 
 
 
-import MyRoadmaps from "./components/admin-dashboaerd/course/MyRoadmaps";
-import CreateRoadmap from "./components/admin-dashboaerd/course/AddCourse";
-import AllSteps from "./components/admin-dashboaerd/course/AllSteps";
-import CreateSteps from "./components/admin-dashboaerd/course/CreateSteps";
+import MyRoadmaps from "./components/admin-dashboaerd/Roadmap/MyRoadmaps";
+import CreateRoadmap from "./components/admin-dashboaerd/Roadmap/AddRoadmap";
+import AllSteps from "./components/admin-dashboaerd/Roadmap/AllSteps";
+import CreateSteps from "./components/admin-dashboaerd/Roadmap/CreateSteps";
 
 
 export const REST_API_BASE_URL = "http://localhost:9090/api";
