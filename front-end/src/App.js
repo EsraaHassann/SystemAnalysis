@@ -18,19 +18,16 @@ import SIGNUP from "./components/sign-up/Sign-up";
 import { StoreProvider } from "./store";
 import Aside_Student from "./components/common/asidebar-student/asidebar";
 
-import Dashboard from "./components/admin-dashboaerd/Dashboard";
-import AllStudents from "./components/admin-dashboaerd/Students/AllStudent";
-import CreateNewStudent from "./components/admin-dashboaerd/Students/CreateNewStudent";
-import EditFormStudent from "./components/admin-dashboaerd/Students/EditFormStudent";
+import Dashboard from "./components/admin-dashboard/Dashboard";
+import AllStudents from "./components/admin-dashboard/User/AllUsers";
+import CreateNewStudent from "./components/admin-dashboard/User/CreateNewUser";
+import EditFormStudent from "./components/admin-dashboard/User/EditFormUser";
 import Aside_Admin from "./components/common/asidebar-admin/asidebar";
 
-import All_Instructor from "./components/admin-dashboaerd/Instructor/All_Instructor";
-import CreateNewInstructor from "./components/admin-dashboaerd/Instructor/CreateNewInstructor";
-import EditFormInstructor from "./components/admin-dashboaerd/Instructor/EditFormInstructor";
-
 import CreateRoadmap from "./components/admin-dashboard/roadmap/AddRoadmap";
-import AllSteps from "./components/admin-dashboaerd/roadmap/AllSteps";
-import CreateSteps from "./components/admin-dashboaerd/roadmap/CreateSteps";
+import CreateSteps from "./components/admin-dashboard/roadmap/CreateSteps";
+
+import AllSteps from "./components/admin-dashboard/roadmap/AllSteps";
 import MyRoadmaps from "./components/admin-dashboard/roadmap/MyRoadmaps";
 
 export const REST_API_BASE_URL = "http://localhost:9090/api";
@@ -49,15 +46,6 @@ function App() {
               <Route
                 path="/admin"
                 element={
-                  // <ProtectedRoute
-                  //   element={
-                  //     <>
-                  //       <Aside_Admin />
-                  //       <Outlet />
-                  //     </>
-                  //   }
-                  //   allowedRoles={["ADMIN"]}
-                  // />
                   <>
                     <Aside_Admin />
                     <Outlet />
@@ -72,16 +60,6 @@ function App() {
                 <Route path="roadmaps/:id" element={<MyRoadmaps />} />
                 <Route path="roadmap/steps/:id" element={<AllSteps />} />
                 <Route path="create-steps/:id" element={<CreateSteps />} />
-
-                <Route path="instructors" element={<All_Instructor />} />
-                <Route
-                  path="instructor-add"
-                  element={<CreateNewInstructor />}
-                />
-                <Route
-                  path="instructor-edit/:id"
-                  element={<EditFormInstructor />}
-                />
               </Route>
               <Route
                 path="/student"
@@ -97,28 +75,8 @@ function App() {
                   />
                 }
               >
-                <Route path="dashboard" element={<DASHBOARD />} />
-              </Route>
-
-              <Route
-                path="/instructor"
-                element={
-                  <ProtectedRoute
-                    element={
-                      <>
-                        <Aside_Instructor />
-                        <Outlet />
-                      </>
-                    }
-                    allowedRoles={["INSTRUCTOR"]}
-                  />
-                }
-              >
-                <Route path="dashboard" element={<DASHBOARD />} />
-                <Route path="CreateRoadmap" element={<CreateRoadmap />} />
-                <Route path="my-course/play/:id" element={<AllSteps />} />
-                <Route path="upload-video/:id" element={<CreateSteps />} />
-                <Route path="my-courses/:id" element={<MyRoadmaps />} />
+                {/* Remove the line below */}
+                {/* <Route path="dashboard" element={<Dashboard />} /> */}
               </Route>
 
               <Route

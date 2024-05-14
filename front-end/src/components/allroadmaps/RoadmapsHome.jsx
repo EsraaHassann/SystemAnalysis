@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react"
-import Back from "../common/back/Back"
-import CoursesCard from "./CoursesCard"
-import OnlineCourses from "./OnlineCourses"
-import { REST_API_BASE_URL } from "./../../App";
 import axios from "axios";
-import $ from 'jquery';
+import React, { useEffect, useState } from "react";
+import { REST_API_BASE_URL } from "../../App";
+import Back from "../common/back/Back";
+import CoursesCard from "./CoursesCard";
 const CourseHome = () => {
 
 

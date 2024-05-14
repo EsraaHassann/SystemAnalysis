@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import { REST_API_BASE_URL } from "./../../../App";
+import { REST_API_BASE_URL } from "../../../App";
 
 const EditFormStudent = () => {
   const { id } = useParams();

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {REST_API_BASE_URL} from "./../../../App";
+import {REST_API_BASE_URL} from "../../../App";
 
 const CreateNewStudent = () => {
   const [active, setActive] = useState(false);

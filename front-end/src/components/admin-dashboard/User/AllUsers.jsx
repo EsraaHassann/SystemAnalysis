@@ -3,7 +3,7 @@ import { faPencilAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import {REST_API_BASE_URL} from "./../../../App"
+import {REST_API_BASE_URL} from "../../../App"
 const AllStudents = () => {
   const [active, setActive] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
