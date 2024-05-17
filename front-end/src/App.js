@@ -11,7 +11,6 @@ import Contact from "./components/contact/Contact";
 import Home from "./components/home/Home";
 import SIGNUP from "./components/sign-up/Sign-up";
 import { StoreProvider } from "./store";
-import Aside_Student from "./components/common/asidebar-student/asidebar";
 
 import Dashboard from "./components/admin-dashboard/Dashboard";
 import AllStudents from "./components/admin-dashboard/User/AllUsers";
@@ -56,24 +55,6 @@ function App() {
                 <Route path="roadmap/steps/:id" element={<AllSteps />} />
                 <Route path="create-steps/:id" element={<CreateSteps />} />
               </Route>
-              <Route
-                path="/student"
-                element={
-                  <ProtectedRoute
-                    element={
-                      <>
-                        <Aside_Student />
-                        <Outlet />
-                      </>
-                    }
-                    allowedRoles={["STUDENT"]}
-                  />
-                }
-              >
-                {/* Remove the line below */}
-                {/* <Route path="dashboard" element={<Dashboard />} /> */}
-              </Route>
-
               <Route
                 path="/"
                 element={
