@@ -30,12 +30,6 @@ const Header = () => {
               <Link to="/admin/dashboard">Dashboard</Link>
             </li>
           );
-        case "USER":
-          return (
-            <li>
-              <Link to="/student/dashboard">Dashboard</Link>
-            </li>
-          );
         default:
           return null;
       }
