@@ -52,6 +52,14 @@ public class UserController {
         return userRepository.findAll();
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<User> createStudent(@RequestBody User user) {
+        user.setRole(Role.USER);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User saveduser = userRepository.save(user);
+        return ResponseEntity.ok(saveduser);
+    }
+
     @DeleteMapping("/users/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         Optional<User> userOptional = userRepository.findById(id);

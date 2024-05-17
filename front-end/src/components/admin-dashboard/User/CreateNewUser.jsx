@@ -55,7 +55,7 @@ export const FormCreateStudent = ({ state }) => {
     dob: "",
     email: "",
     phone: "",
-    role: "STUDENT",
+    role: "USER",
   });
 
   useEffect(() => {
@@ -122,7 +122,7 @@ export const FormCreateStudent = ({ state }) => {
         }
         try {
           const response = await axios.get(
-            `${REST_API_BASE_URL}/user/check-email/students/${value}`
+            `${REST_API_BASE_URL}/user/check-email/${value}`
           );
           if (response.data) {
             error = "Email is already in use.";
@@ -158,7 +158,7 @@ export const FormCreateStudent = ({ state }) => {
 
   const handleStudentCreation = () => {
     axios
-      .post(`${REST_API_BASE_URL}/user/students/create`, studentData)
+      .post(`${REST_API_BASE_URL}/user/create`, studentData)
       .then((response) => {
         console.log("Student created:", response.data);
         setSuccessMessage("Student Added successfully.");
