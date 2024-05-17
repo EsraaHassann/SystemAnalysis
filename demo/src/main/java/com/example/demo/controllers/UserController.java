@@ -60,7 +60,7 @@ public class UserController {
         return ResponseEntity.ok(saveduser);
     }
 
-    @DeleteMapping("/users/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isPresent()) {
@@ -69,6 +69,15 @@ public class UserController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/getuser/{id}")
+    public ResponseEntity<User> getStudent(@PathVariable Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user != null && user.getRole() == Role.USER) {
+            return ResponseEntity.ok(user);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PutMapping("/promote-to-admin/{id}")

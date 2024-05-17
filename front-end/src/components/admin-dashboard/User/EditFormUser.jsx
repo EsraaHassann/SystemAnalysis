@@ -8,7 +8,7 @@ const EditFormStudent = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [studentInfo, setStudentInfo] = useState({});
 
-  const [studentData, setStudentData] = useState({
+  const [UserData, setUserData] = useState({
     fname: "",
     lname: "",
     password: "",
@@ -42,7 +42,7 @@ const EditFormStudent = () => {
   }, [successMessage]);
 
   const validateEmptyPassword = () => {
-    if (!studentData.password.trim()) {
+    if (!UserData.password.trim()) {
       setErrors((prevErrors) => ({
         ...prevErrors,
         password: "Password must not be empty.",
@@ -59,7 +59,7 @@ const EditFormStudent = () => {
 
   const handleChange = async (e) => {
     const { name, value } = e.target;
-    setStudentData({ ...studentData, [name]: value });
+    setUserData({ ...UserData, [name]: value });
     let error = "";
 
     switch (name) {
@@ -101,7 +101,7 @@ const EditFormStudent = () => {
         }
         try {
           const response = await axios.get(
-            `${REST_API_BASE_URL}/check-email/${value}`
+            `${REST_API_BASE_URL}/user/check-email/${value}`
           );
           if (response.data && response.data.id != id) {
             error = "Email is already in use.";
@@ -120,18 +120,18 @@ const EditFormStudent = () => {
         break;
     }
     setErrors({ ...errors, [name]: error });
-    setStudentData({ ...studentData, [name]: value });
+    setUserData({ ...UserData, [name]: value });
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${REST_API_BASE_URL}/user/getstudent/${id}`
+          `${REST_API_BASE_URL}/user/getuser/${id}`
         );
-        const updatedStudentData = { ...response.data, password: "" };
-        setStudentData(updatedStudentData);
-        setStudentInfo(updatedStudentData);
+        const updatedUserData = { ...response.data, password: "" };
+        setUserData(updatedUserData);
+        setStudentInfo(updatedUserData);
       } catch (error) {
         console.error("Error fetching student data:", error);
       }
@@ -141,13 +141,13 @@ const EditFormStudent = () => {
 
   const handleStudentUpdate = () => {
     axios
-      .put(`${REST_API_BASE_URL}/user/students/update/${id}`, studentData)
+      .put(`${REST_API_BASE_URL}/user/students/update/${id}`, UserData)
       .then((response) => {
         console.log("Student updated successfully:", response.data);
         setSuccessMessage(
-          `update student ${studentData.fname}  ${studentData.lname} in the system.`
+          `update student ${UserData.fname}  ${UserData.lname} in the system.`
         );
-        setStudentInfo(studentData);
+        setStudentInfo(UserData);
       })
       .catch((error) => {
         console.error("Error updating student:", error);
@@ -196,7 +196,7 @@ const EditFormStudent = () => {
                 className="form-control"
                 id="firstName"
                 name="fname"
-                value={studentData.fname}
+                value={UserData.fname}
                 onChange={handleChange}
               />
             </div>
@@ -212,7 +212,7 @@ const EditFormStudent = () => {
                 className="form-control"
                 id="lastName"
                 name="lname"
-                value={studentData.lname}
+                value={UserData.lname}
                 onChange={handleChange}
               />
             </div>
@@ -228,7 +228,7 @@ const EditFormStudent = () => {
                 className="form-control"
                 id="password"
                 name="password"
-                value={studentData.password}
+                value={UserData.password}
                 onChange={handleChange}
               />
             </div>
@@ -244,7 +244,7 @@ const EditFormStudent = () => {
                 className="form-control"
                 id="email"
                 name="email"
-                value={studentData.email}
+                value={UserData.email}
                 onChange={handleChange}
               />
             </div>
@@ -260,7 +260,7 @@ const EditFormStudent = () => {
                 className="form-control"
                 id="phone"
                 name="phone"
-                value={studentData.phone}
+                value={UserData.phone}
                 onChange={handleChange}
               />
             </div>
@@ -275,7 +275,7 @@ const EditFormStudent = () => {
                 className="form-select"
                 id="gender"
                 name="gender"
-                value={studentData.gender}
+                value={UserData.gender}
                 onChange={handleChange}
               >
                 <option value="">Select Gender</option>
@@ -295,7 +295,7 @@ const EditFormStudent = () => {
                 className="form-control"
                 id="dob"
                 name="dob"
-                value={studentData.dob}
+                value={UserData.dob}
                 onChange={handleChange}
               />
             </div>
@@ -310,14 +310,14 @@ const EditFormStudent = () => {
             )}
           </form>
         </div>
-        <StudentInfo studentData={studentInfo} />
+        <StudentInfo UserData={studentInfo} />
       </div>
     </div>
   );
 };
 
-const StudentInfo = ({ studentData }) => {
-  const { fname, lname, phone, email } = studentData;
+const StudentInfo = ({ UserData }) => {
+  const { fname, lname, phone, email } = UserData;
   const { id } = useParams();
 
   const [enrolledCourses, setEnrolledCourses] = useState([]);
