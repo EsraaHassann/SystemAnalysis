@@ -4,13 +4,19 @@ import java.util.List;
 
 public interface RoadmapService {
 
-    public Roadmap create(Roadmap roadmap);
+    Roadmap createRoadmap(Roadmap roadmap);
 
-    public Roadmap get(Long id);
+    Roadmap getRoadmap(Long id);
 
-    public Roadmap update(Roadmap roadmap, Long id);
+    Roadmap updateRoadmap(Roadmap roadmap, Long id);
 
-    public void delete(Long id);
+    void deleteRoadmap(Long id);
 
-    public List<Roadmap> getAll();
+    List<Roadmap> getAllRoadmaps();
+
+    List<Roadmap> getApprovedRoadmaps();
+
+    List<Roadmap> getRoadmapsByUserId(Long userId);
+
+    Roadmap approveRoadmap(Long id);
 }
