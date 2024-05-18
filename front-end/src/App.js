@@ -21,9 +21,9 @@ import EditFormStudent from "./components/admin-dashboard/User/EditFormUser";
 import Aside_Admin from "./components/common/asidebar-admin/asidebar";
 
 import CreateRoadmap from "./components/admin-dashboard/roadmap/AddRoadmap";
-import CreateSteps from "./components/admin-dashboard/roadmap/CreateSteps";
+import CreateSteps from "./components/admin-dashboard/roadmap/steps/CreateSteps";
 
-import AllSteps from "./components/admin-dashboard/roadmap/AllSteps";
+import AllSteps from "./components/admin-dashboard/roadmap/steps/AllSteps";
 import MyRoadmaps from "./components/admin-dashboard/roadmap/MyRoadmaps";
 import AllRoadmaps from"./components/allroadmaps/RoadmapsHome";
 import SelectRoadmap from "./components/SelectRoadmap/SelectRoadmap";

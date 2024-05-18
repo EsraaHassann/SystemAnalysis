@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Store } from "../../../store";
+import { Store } from "../../../../store";
 
 const CreateSteps = () => {
   const { state } = useContext(Store);

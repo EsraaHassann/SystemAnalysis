@@ -1,6 +1,7 @@
 package com.example.demo.models;
 
 import com.example.demo.service.RoadmapStepsServiceImpl;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -25,6 +26,7 @@ public class Resources {
     private String title;
     private String url;
 
+    @JsonIgnore
     @ManyToOne
     private RoadmapSteps roadmapSteps;
 }

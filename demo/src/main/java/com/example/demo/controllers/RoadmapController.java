@@ -102,9 +102,14 @@ public class RoadmapController {
     }
 
     @DeleteMapping("/roadmap/{id}")
-    public ResponseEntity<Void> deleteRoadmap(@PathVariable Long id) {
-        roadmapService.deleteRoadmap(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> deleteRoadmap(@PathVariable Long id) {
+        try {
+             roadmapService.deleteRoadmap(id);
+             return  ResponseEntity.ok().build();
+        } catch (Exception e) {
+            
+             return ResponseEntity.noContent().build();
+        }
     }
 
     @GetMapping("/user/{userId}/roadmaps")

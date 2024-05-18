@@ -13,19 +13,33 @@ import { REST_API_BASE_URL } from "../../../App";
 const MyRoadmaps = () => {
   const { id } = useParams();
   const [roadmaps, setRoadmaps] = useState([]);
+  const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState("");
+  const [alert, setAlert] = useState("");
 
-  const handleDelete = async (id) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSuccessMessage("");
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, [successMessage]);
+
+
+  const handleDelete = async (id,title) => {
     try {
       const response = await axios.delete(
-        `${REST_API_BASE_URL}/instructor/delete/course/${id}`
+        `${REST_API_BASE_URL}/admin/roadmap/${id}`
       );
 
-      if (response.status === 200) {
-        // setSuccessMessage(`Instractor deleted successfully`);
-        // console.log("Instractor deleted successfully");
-        // setInstractor(Instractor.filter((Student) => Student.id !== id));
+      if (response.status == 200) {
+        setAlert("alert alert-success")
+        setSuccessMessage(`${title} Deleted Successfully`);
+        console.log("roadmap deleted successfully");
+       
       } else {
         console.error("Failed to delete item");
+        setAlert("alert alert-danger")
+        setSuccessMessage(`Before Delete (${title}) check all Steps and Resources Deleted`);
       }
     } catch (error) {
       console.error("Error deleting item:", error.message);
@@ -87,35 +101,35 @@ const MyRoadmaps = () => {
                     <td colSpan="5">No roadmaps found</td>
                   </tr>
                 ) : (
-                  roadmaps.map((course, index) => (
-                    <tr key={course.id}>
+                  roadmaps.map((roadmap, index) => (
+                    <tr key={roadmap.id}>
                       <td>{index + 1}</td>
-                      <td> {course.title}</td>
+                      <td> {roadmap.title}</td>
                       <td>
                         <Link
-                          to={`/admin/create-steps/${course.id}`}
+                          to={`/admin/roadmap/steps/${roadmap.id}`}
                           className="link-dark me-3"
                         >
-                          {course.steps.length}
+                          {roadmap.steps.length}
                           <FontAwesomeIcon icon={faEye} />
                         </Link>
                       </td>
                       <td>
                         <Link
-                          to={`/admin/add-steps/${course.id}`}
+                          to={`/admin/create-steps/${roadmap.id}`}
                           className="link-dark me-3"
                         >
                           <FontAwesomeIcon icon={faPencilAlt} />
                         </Link>
                         <Link
-                          to={`/admin/course-edit/${course.id}`}
+                          to={`/admin/steps/${roadmap.id}`}
                           className="link-dark me-3"
                         >
                           <FontAwesomeIcon icon={faEdit} />
                         </Link>
                         <button
                           className="btn"
-                          onClick={() => handleDelete(course.id)}
+                          onClick={() => handleDelete(roadmap.id,roadmap.title)}
                         >
                           <FontAwesomeIcon icon={faTrash} />
                         </button>
@@ -126,9 +140,9 @@ const MyRoadmaps = () => {
               </tbody>
             </table>
           </div>
-          {/* {successMessage && (
-          <div className="alert alert-success">{successMessage}</div>
-        )}*/}
+          {successMessage && (
+          <div className={alert}>{successMessage}</div>
+        )}
         </div>
       </div>
     </div>
