@@ -26,6 +26,7 @@ import CreateSteps from "./components/admin-dashboard/roadmap/CreateSteps";
 import AllSteps from "./components/admin-dashboard/roadmap/AllSteps";
 import MyRoadmaps from "./components/admin-dashboard/roadmap/MyRoadmaps";
 import AllRoadmaps from"./components/allroadmaps/RoadmapsHome";
+import SelectRoadmap from "./components/SelectRoadmap/SelectRoadmap";
 export const REST_API_BASE_URL = "http://localhost:9090/api";
 
 // Create a new queryClient instance
@@ -74,6 +75,7 @@ function App() {
                 <Route exact path="/sign-up" element={<SIGNUP />} />
                 <Route exact path="/login" element={<LOGIN />} />
                 <Route path="/userProfile" element={<UserProfile />} />
+                <Route path="/s" element={<SelectRoadmap />} />
               </Route>
             </Routes>
           </StoreProvider>

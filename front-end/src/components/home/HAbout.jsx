@@ -59,13 +59,12 @@ const HAbout = () => {
           <div className="coursesCard">
             {/* copy code form  coursesCard */}
             <div className="grid2">
-              {roadmaps.map((val) => (
+              {roadmaps.length !=0? roadmaps.map((val) => (
                 <div className="items">
-                  <div className="content flex"></div>
 
                   <button className="outline-btn"  onClick={()=>handleSelect(val)}>{val.title}</button>
                 </div>
-              ))}
+              )):<></>}
             </div>
           </div>
 
