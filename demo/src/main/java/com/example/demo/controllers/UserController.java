@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<User> createStudent(@RequestBody User user) {
+    public ResponseEntity<User> createuser(@RequestBody User user) {
         user.setRole(Role.USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         User saveduser = userRepository.save(user);
@@ -72,7 +72,7 @@ public class UserController {
     }
 
     @GetMapping("/getuser/{id}")
-    public ResponseEntity<User> getStudent(@PathVariable Long id) {
+    public ResponseEntity<User> getuser(@PathVariable Long id) {
         User user = userRepository.findById(id).orElse(null);
         if (user != null && user.getRole() == Role.USER) {
             return ResponseEntity.ok(user);
@@ -97,6 +97,24 @@ public class UserController {
     public ResponseEntity<Boolean> checkEmailExists(@PathVariable String email) {
         Optional<User> user = userRepository.findByEmail(email);
         return ResponseEntity.ok(user.isPresent());
+    }
+
+    @PutMapping("/update/{id}")
+    public User updateUser(@RequestBody User user, @PathVariable Long id) {
+        User repouser = userRepository.findById(id).orElse(null);
+        if (repouser != null && repouser.getRole() == Role.USER) {
+            repouser.setFname(user.getFname());
+            repouser.setLname(user.getLname());
+            repouser.setEmail(user.getEmail());
+            repouser.setGender(user.getGender());
+            repouser.setDob(user.getDob());
+            if (!user.getPassword().isEmpty()) {
+                repouser.setPassword(passwordEncoder.encode(user.getPassword()));
+            }
+            userRepository.save(repouser);
+            return repouser;
+        }
+        return null;
     }
 
     public User getUserFromToken(HttpServletRequest request) {
