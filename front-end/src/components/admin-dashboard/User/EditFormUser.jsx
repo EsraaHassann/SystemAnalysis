@@ -317,57 +317,43 @@ const EditFormStudent = () => {
 };
 
 const StudentInfo = ({ UserData }) => {
-  const { fname, lname, phone, email } = UserData;
+  const { fname, lname, phone, email,gender,dob,role } = UserData;
   const { id } = useParams();
 
   const [enrolledCourses, setEnrolledCourses] = useState([]);
-  useEffect(() => {
-    const fetchEnrolledCourses = async () => {
-      try {
-        const response = await axios.get(`${REST_API_BASE_URL}/student/courses/enrolled/${id}`);
-        setEnrolledCourses(response.data);
-
-        console.log(response.data)
-      } catch (error) {
-        console.error("Error fetching enrolled courses:", error);
-      }
-    };
-
-    fetchEnrolledCourses();
-  }, []);
-
-  
+  useEffect(() => {}, []);
 
   return (
     <div className="recentCustomerss">
-    <div className="card">
-      <div className="card-header">
-        <h2>Student Info</h2>
-      </div>
-      <div className="card-body">
-        <p>
-          <strong>First Name:</strong> {fname}
-        </p>
-        <p>
-          <strong>Last Name:</strong> {lname}
-        </p>
-        <p>
-          <strong>Phone:</strong> {phone}
-        </p>
-        <p>
-          <strong>Email:</strong> {email}
-        </p>
-        <div>
-          <h2>Enrolled Courses</h2>
-          <ul className="list-group">
-            {enrolledCourses.length !=0 ?(enrolledCourses.map((course, index) => (
-              <li key={course.id} className="list-group-item">{index+1}- {course.title} <br /> By {course.user.fname}</li>
-            ))):( <li  className="list-group-item">The student not enrolled to any Course</li>)}
-          </ul>
+      <div className="card">
+        <div className="card-header">
+          <h2>Student Info</h2>
+        </div>
+        <div className="card-body">
+          <p>
+            <strong>First Name:</strong> {fname}
+          </p>
+          <p>
+            <strong>Last Name:</strong> {lname}
+          </p>
+          <p>
+            <strong>Phone:</strong> {phone}
+          </p>
+          <p>
+            <strong>Email:</strong> {email}
+          </p>
+          <p>
+            <strong>gender:</strong> {gender}
+          </p>
+          <p>
+            <strong>Data Of Birth:</strong> {dob}
+          </p>
+          <p>
+            <strong>User Type:</strong> {role}
+          </p>
         </div>
       </div>
     </div>
-  </div>
   );
 };
 
