@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 
 import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {REST_API_BASE_URL} from "../../../App";
+import { REST_API_BASE_URL } from "../../../App";
 
-const CreateNewStudent = () => {
+const CreateNewUser = () => {
   const [active, setActive] = useState(false);
   const toggleMenu = () => {
     setActive(!active);
@@ -29,12 +29,12 @@ const CreateNewStudent = () => {
       <div className="detailss ">
         <div className="recentOrderss">
           <div class="cardHeader">
-            <h2>Create New Student</h2>
+            <h2>Create New User</h2>
             <Link to="/admin/students" className="btn">
-              All Students
+              All Users
             </Link>
           </div>
-          <FormCreateStudent state="Add student" />
+          <FormCreateUser state="Add User" />
           <div></div>
         </div>
       </div>
@@ -42,12 +42,12 @@ const CreateNewStudent = () => {
   );
 };
 
-export const FormCreateStudent = ({ state }) => {
+export const FormCreateUser = ({ state }) => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
-  const [studentData, setStudentData] = useState({
+  const [userData, setuserData] = useState({
     fname: "",
     lname: "",
     password: "",
@@ -65,8 +65,8 @@ export const FormCreateStudent = ({ state }) => {
     return () => clearTimeout(timer);
   }, [successMessage]);
 
-  const emptyStudentData = () => {
-    setStudentData({
+  const emptyuserData = () => {
+    setuserData({
       fname: "",
       lname: "",
       password: "",
@@ -74,13 +74,13 @@ export const FormCreateStudent = ({ state }) => {
       dob: "",
       email: "",
       phone: "",
-      role: studentData.role,
+      role: userData.role,
     });
   };
 
   const handleChange = async (e) => {
     const { name, value } = e.target;
-    setStudentData({ ...studentData, [name]: value });
+    setuserData({ ...userData, [name]: value });
     let error = "";
 
     switch (name) {
@@ -136,15 +136,15 @@ export const FormCreateStudent = ({ state }) => {
         break;
     }
     setErrors({ ...errors, [name]: error });
-    setStudentData({ ...studentData, [name]: value });
+    setuserData({ ...userData, [name]: value });
   };
 
   const validateEmptyFields = () => {
     let isEmpty = false;
     const newErrors = {};
-    for (const key in studentData) {
-      if (studentData.hasOwnProperty(key)) {
-        if (!studentData[key].trim()) {
+    for (const key in userData) {
+      if (userData.hasOwnProperty(key)) {
+        if (!userData[key].trim()) {
           newErrors[key] = "Field must not be empty.";
           isEmpty = true;
         } else {
@@ -156,17 +156,17 @@ export const FormCreateStudent = ({ state }) => {
     return isEmpty;
   };
 
-  const handleStudentCreation = () => {
+  const handleUserCreation = () => {
     axios
-      .post(`${REST_API_BASE_URL}/user/create`, studentData)
+      .post(`${REST_API_BASE_URL}/user/create`, userData)
       .then((response) => {
-        console.log("Student created:", response.data);
-        setSuccessMessage("Student Added successfully.");
-        emptyStudentData();
+        console.log("User created:", response.data);
+        setSuccessMessage("User Added successfully.");
+        emptyuserData();
         NavigatePage();
       })
       .catch((error) => {
-        console.error("Error creating student:", error);
+        console.error("Error creating User:", error);
       });
   };
 
@@ -181,7 +181,7 @@ export const FormCreateStudent = ({ state }) => {
     e.preventDefault();
     const hasErrors = Object.values(errors).some((error) => error);
     if (!hasErrors && !validateEmptyFields()) {
-      handleStudentCreation();
+      handleUserCreation();
     }
   };
   return (
@@ -196,7 +196,7 @@ export const FormCreateStudent = ({ state }) => {
             className="form-control"
             id="firstName"
             name="fname"
-            value={studentData.fname}
+            value={userData.fname}
             onChange={handleChange}
           />
         </div>
@@ -212,7 +212,7 @@ export const FormCreateStudent = ({ state }) => {
             className="form-control"
             id="lastName"
             name="lname"
-            value={studentData.lname}
+            value={userData.lname}
             onChange={handleChange}
           />
         </div>
@@ -228,7 +228,7 @@ export const FormCreateStudent = ({ state }) => {
             className="form-control"
             id="password"
             name="password"
-            value={studentData.password}
+            value={userData.password}
             onChange={handleChange}
           />
         </div>
@@ -244,7 +244,7 @@ export const FormCreateStudent = ({ state }) => {
             className="form-control"
             id="email"
             name="email"
-            value={studentData.email}
+            value={userData.email}
             onChange={handleChange}
           />
         </div>
@@ -260,7 +260,7 @@ export const FormCreateStudent = ({ state }) => {
             className="form-control"
             id="phone"
             name="phone"
-            value={studentData.phone}
+            value={userData.phone}
             onChange={handleChange}
           />
         </div>
@@ -275,7 +275,7 @@ export const FormCreateStudent = ({ state }) => {
             className="form-select"
             id="gender"
             name="gender"
-            value={studentData.gender}
+            value={userData.gender}
             onChange={handleChange}
           >
             <option value="">Select Gender</option>
@@ -295,7 +295,7 @@ export const FormCreateStudent = ({ state }) => {
             className="form-control"
             id="dob"
             name="dob"
-            value={studentData.dob}
+            value={userData.dob}
             onChange={handleChange}
           />
         </div>
@@ -315,4 +315,4 @@ export const FormCreateStudent = ({ state }) => {
   );
 };
 
-export default CreateNewStudent;
+export default CreateNewUser;

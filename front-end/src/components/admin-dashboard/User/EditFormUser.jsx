@@ -183,7 +183,7 @@ const EditFormStudent = () => {
           <div class="cardHeader">
             <h2>Edit Student {studentInfo.fname}</h2>
             <Link to="/admin/students" className="btn">
-              All Students
+              All Users
             </Link>
           </div>
           <form onSubmit={handleSubmit}>

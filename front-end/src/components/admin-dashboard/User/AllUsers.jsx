@@ -114,13 +114,14 @@ const AllStudents = () => {
                   <th scope="col">Last Name</th>
                   <th scope="col">Email</th>
                   <th scope="col">phone</th>
+                  <th scope="col">Role</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
                 {Students.length === 0 ? (
                   <tr>
-                    <td colSpan="6">Student not found</td>
+                    <td colSpan="6">User not found</td>
                   </tr>
                 ) : (
                   Students.map((item) => (
@@ -129,6 +130,7 @@ const AllStudents = () => {
                       <td>{item.fname}</td>
                       <td>{item.lname}</td>
                       <td>{item.email}</td>
+                      <td>{item.role}</td>
                       <td>{item.phone}</td>
                       <td>
                         <Link
