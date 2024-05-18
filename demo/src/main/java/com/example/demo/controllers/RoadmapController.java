@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.models.Resources;
 import com.example.demo.models.Roadmap;
 import com.example.demo.models.RoadmapSteps;
+import com.example.demo.models.Role;
 import com.example.demo.models.User;
 import com.example.demo.repository.RoadmapRepository;
 import com.example.demo.repository.UserRepository;
@@ -53,12 +54,17 @@ public class RoadmapController {
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with ID: " + userId);
         }
+        if (user.getRole() == Role.ADMIN) {
+            roadmap.setApproved(true);
+        } else {
+            roadmap.setApproved(false);
+        }
+        
         roadmap.setUser(user);
-        roadmap.setApproved(false); // New roadmaps need approval
         Roadmap createdRoadmap = roadmapService.createRoadmap(roadmap);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdRoadmap);
     }
-
+    
     @GetMapping("/roadmaps")
     public ResponseEntity<List<Roadmap>> getAllApprovedRoadmaps() {
         List<Roadmap> roadmaps = roadmapService.getApprovedRoadmaps();

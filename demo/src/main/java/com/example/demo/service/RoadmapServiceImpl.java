@@ -17,7 +17,6 @@ public class RoadmapServiceImpl implements RoadmapService {
 
     @Override
     public Roadmap createRoadmap(Roadmap roadmap) {
-        roadmap.setApproved(false); // Set approval to false by default
         return roadmapRepository.save(roadmap);
     }
 

@@ -4,6 +4,8 @@ import "./App.css";
 import ProtectedRoute from "./ProtectedRoute";
 import LOGIN from "./components/Log-in/Log-in";
 import UserProfile from "./components/UserProfile/userProfile";
+import updateProfile from "./components/UserProfile/UpdateProfile";
+
 import About from "./components/about/About";
 import Footer from "./components/common/footer/footer";
 import Header from "./components/common/header/header";
