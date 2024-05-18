@@ -1,23 +1,40 @@
-import React from "react"
-import Back from "../common/back/Back"
-import Heading from "../common/heading/Heading"
-
+import React, { useEffect, useState } from "react";
+import Back from "../common/back/Back";
+import Heading from "../common/heading/Heading";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { REST_API_BASE_URL } from "../../App";
 
 const SelectRoadmap = () => {
-  return (
-    <> <Back title="Sign Up" />
-    <div className="container">
-     
-      <Heading
-            subtitle="Developer Roadmaps"
-            title="Learning path is a community effort to create roadmaps, guides and other
-           educational content to help
-           guide developers in picking up a path and guide their learnings."
-          />
-          <br />
-          </div>
-    </>
-  )
-}
+  const { id } = useParams();
+  console.log(id);
 
-export default SelectRoadmap
+  const [roadmap, setRoadmap] = useState({});
+  const handleFetchRoadmaps = async () => {
+    try {
+      const response = await axios.get(
+        `${REST_API_BASE_URL}/admin/roadmap/${id}`
+      );
+      const roadmapData = response.data;
+      setRoadmap(roadmapData);
+    } catch (error) {
+      console.error("Error fetching course data:", error);
+    }
+  };
+  console.log(roadmap.title);
+  useEffect(() => {
+    handleFetchRoadmaps();
+  }, []);
+  return (
+    <>
+      <Back title="RoadMap" />
+
+      <div className="container">
+        <Heading subtitle={roadmap.title} title={roadmap.description} />
+        <br />
+      </div>
+    </>
+  );
+};
+
+export default SelectRoadmap;

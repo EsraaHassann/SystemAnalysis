@@ -14,7 +14,7 @@ const HAbout = () => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
   const [roadmaps, setRoadmaps] = useState([]);
-  const handleCourseFetch = async () => {
+  const handleFetchRoadmaps = async () => {
     try {
       const response = await axios.get(`${REST_API_BASE_URL}/admin/roadmaps`);
       const roadmapData = response.data;
@@ -25,14 +25,14 @@ const HAbout = () => {
   };
   console.log(roadmaps)
   useEffect(() => {
-    handleCourseFetch();
+    handleFetchRoadmaps();
   },[])
 
 
   const handleSelect = (val) =>{
     console.log(val.id)
     if(userInfo){
-      alert(true)
+      navigate(`s/${val.id}`)
     }else{
       alert(`Please Login To Access ${val.title} Roadmap`)
       navigate("login")

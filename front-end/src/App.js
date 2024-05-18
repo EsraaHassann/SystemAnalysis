@@ -75,7 +75,7 @@ function App() {
                 <Route exact path="/sign-up" element={<SIGNUP />} />
                 <Route exact path="/login" element={<LOGIN />} />
                 <Route path="/userProfile" element={<UserProfile />} />
-                <Route path="/s" element={<SelectRoadmap />} />
+                <Route path="/s/:id" element={<SelectRoadmap />} />
               </Route>
             </Routes>
           </StoreProvider>
