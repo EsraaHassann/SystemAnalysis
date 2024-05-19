@@ -10,6 +10,7 @@ import { faEdit, faEye, faPencilAlt, faTrash } from "@fortawesome/free-solid-svg
 
 
   const { id } = useParams();
+  const [roadmap, setRoadmap] = useState([]);
   const [roadmaps, setRoadmaps] = useState([]);
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
@@ -44,10 +45,11 @@ import { faEdit, faEye, faPencilAlt, faTrash } from "@fortawesome/free-solid-svg
     }
   };
 
-  const handleCourseFetch = async () => {
+  const handleFetchRoadmap = async () => {
     try {
       const response = await axios.get(`${REST_API_BASE_URL}/admin/roadmap/${id}`);
       const roadmapData = response.data;
+      setRoadmap(roadmapData);
       setRoadmaps(roadmapData.steps);
     } catch (error) {
       console.error("Error fetching course data:", error);
@@ -56,7 +58,7 @@ import { faEdit, faEye, faPencilAlt, faTrash } from "@fortawesome/free-solid-svg
   console.log(roadmaps)
 
   useEffect(() => {
-    handleCourseFetch();
+    handleFetchRoadmap();
   }, []);
 
   return (
@@ -79,8 +81,8 @@ import { faEdit, faEye, faPencilAlt, faTrash } from "@fortawesome/free-solid-svg
       <div className="detailss ">
         <div className="recentOrderss">
         <div className="cardHeader">
-            <h2>All Steps</h2>
-            <Link to={`/admin/roadmaps/${5}`} className="btn">
+            <h2>All Steps of {roadmap.title}</h2>
+            <Link to={`/admin/roadmaps`} className="btn">
               All Roadmaps
             </Link>
             </div>

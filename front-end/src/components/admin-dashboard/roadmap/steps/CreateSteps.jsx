@@ -7,6 +7,7 @@ import axios from "axios";
 const CreateSteps = () => {
  
   const {id} = useParams();
+  const [roadmap, setRoadmap] = useState([]);
   const [courseData, setCourseData] = useState({
     title: "",
     description: "",
@@ -59,7 +60,7 @@ const CreateSteps = () => {
         courseData
       );
       console.log("Course created:", response.data);
-      setSuccessMessage("Course added successfully.");
+      setSuccessMessage(`Add step successfully to ${roadmap.title}.`);
       setCourseData({
         title: "",
         description: "",
@@ -68,14 +69,28 @@ const CreateSteps = () => {
       console.error("Error creating course:", error);
       // Handle specific errors or display a generic error message
     }
+  }; const handleFetchRoadmap = async () => {
+    try {
+      const response = await axios.get(`${REST_API_BASE_URL}/admin/roadmap/${id}`);
+      const roadmapData = response.data;
+      setRoadmap(roadmapData);
+    } catch (error) {
+      console.error("Error fetching course data:", error);
+    }
   };
+  console.log(roadmap)
+
+  useEffect(() => {
+    handleFetchRoadmap();
+  }, []);
+
 
   return (
     <div className="main">
       <div className="detailss">
         <div className="recentOrderss">
           <div className="cardHeader">
-            <h2>Create New step</h2>
+            <h2>Create New step for {roadmap.title}</h2>
             <Link to={`/admin/roadmap/steps/${id}`} className="btn">
               All Steps
             </Link>

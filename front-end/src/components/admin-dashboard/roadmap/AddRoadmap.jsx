@@ -60,7 +60,7 @@ const CreateRoadmap = () => {
         courseData
       );
       console.log("Course created:", response.data);
-      setSuccessMessage("Course added successfully.");
+      setSuccessMessage("Roadmap Created Successfully.");
       setCourseData({
         title: "",
         description: "",
@@ -77,7 +77,7 @@ const CreateRoadmap = () => {
         <div className="recentOrderss">
           <div className="cardHeader">
             <h2>Create New Roadmap</h2>
-            <Link to={`/admin/roadmaps/${5}`} className="btn">
+            <Link to={`/admin/roadmaps`} className="btn">
               All Roadmaps
             </Link>
           </div>
