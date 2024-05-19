@@ -72,11 +72,19 @@ const Aside_Admin = () => {
             </Link>
           </li>
           <li onClick={handleMouseOver}>
-            <Link to={`/admin/roadmaps/${1}`}>
+            <Link to={`/admin/roadmaps`}>
               <span className="iconn">
                 <ion-icon name="people-outline"></ion-icon>
               </span>
               <span className="title">Roadmaps</span>
+            </Link>
+          </li>
+          <li onClick={handleMouseOver}>
+            <Link to={`/admin/approved/roadmap`}>
+              <span className="iconn">
+                <ion-icon name="people-outline"></ion-icon>
+              </span>
+              <span className="title">Approved</span>
             </Link>
           </li>
 

@@ -93,8 +93,10 @@ const MyRoadmaps = () => {
             <table className="table table-hover text-center">
               <thead className="table-dark">
                 <tr>
-                  <th scope="col">ID</th>
+                  <th scope="col">#</th>
+                  <th scope="col">Author</th>
                   <th scope="col">Title</th>
+                  <th scope="col">Description</th>
 
                   <th scope="col">Steps</th>
                   <th scope="col">Actions</th>
@@ -109,7 +111,10 @@ const MyRoadmaps = () => {
                   roadmaps.map((roadmap, index) => (
                     <tr key={roadmap.id}>
                       <td>{index + 1}</td>
+                      <td>{roadmap.user.rol == "USER"? "(U)":"(A)"} {roadmap.user.fname}</td>
+
                       <td> {roadmap.title}</td>
+                      <td> {roadmap.description}</td>
                       <td>
                         <Link
                           to={`/admin/roadmap/steps/${roadmap.id}`}

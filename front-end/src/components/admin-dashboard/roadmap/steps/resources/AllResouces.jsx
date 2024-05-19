@@ -11,6 +11,7 @@ import { faEdit, faEye, faPencilAlt, faTrash } from "@fortawesome/free-solid-svg
 
   const { id } = useParams();
   const [roadmaps, setRoadmaps] = useState([]);
+  const [roadmap, setRoadmap] = useState({});
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
   const [alert, setAlert] = useState("");
@@ -46,9 +47,10 @@ import { faEdit, faEye, faPencilAlt, faTrash } from "@fortawesome/free-solid-svg
 
   const handleCourseFetch = async () => {
     try {
-      const response = await axios.get(`${REST_API_BASE_URL}/admin/roadmap/${id}`);
+      const response = await axios.get(`${REST_API_BASE_URL}/admin/step/${id}`);
       const roadmapData = response.data;
-      setRoadmaps(roadmapData.steps);
+      setRoadmap(roadmapData)
+      setRoadmaps(roadmapData.resources);
     } catch (error) {
       console.error("Error fetching course data:", error);
     }
@@ -79,14 +81,14 @@ import { faEdit, faEye, faPencilAlt, faTrash } from "@fortawesome/free-solid-svg
       <div className="detailss ">
         <div className="recentOrderss">
         <div className="cardHeader">
-            <h2>All Resources</h2>
+            <h2>{roadmap.title}</h2>
             <Link to={`/admin/roadmaps/${5}`} className="btn">
               All Roadmaps
             </Link>
             </div>
           <div >
             
-
+          <h2>All Resources</h2>
             <table className="table table-hover text-center">
               <thead className="table-dark">
                 <tr>
@@ -109,20 +111,14 @@ import { faEdit, faEye, faPencilAlt, faTrash } from "@fortawesome/free-solid-svg
                       <td> {roadmap.title}</td>
                       <td>
                         <Link
-                          to={`/admin/create-steps/${roadmap.id}`}
+                          to={`/${roadmap.url}`}
                           className="link-dark me-3"
                         >
-                          {roadmap.resources.length}
-                          <FontAwesomeIcon icon={faEye} />
+                          {roadmap.url}
+                          
                         </Link>
                       </td>
                       <td>
-                        <Link
-                          to={`/admin/create-steps/${roadmap.id}`}
-                          className="link-dark me-3"
-                        >
-                          <FontAwesomeIcon icon={faPencilAlt} />
-                        </Link>
                         <Link
                           to={`/admin/course-edit/${roadmap.id}`}
                           className="link-dark me-3"

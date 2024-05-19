@@ -92,6 +92,7 @@ import { faEdit, faEye, faPencilAlt, faTrash } from "@fortawesome/free-solid-svg
                 <tr>
                   <th scope="col">ID</th>
                   <th scope="col">Title</th>
+                  <th scope="col">Description</th>
 
                   <th scope="col">Resources</th>
                   <th scope="col">Actions</th>
@@ -107,6 +108,7 @@ import { faEdit, faEye, faPencilAlt, faTrash } from "@fortawesome/free-solid-svg
                     <tr key={roadmap.id}>
                       <td>{index + 1}</td>
                       <td> {roadmap.title}</td>
+                      <td> {roadmap.description}</td>
                       <td>
                         <Link
                           to={`/admin/roadmap/steps/resources/${roadmap.id}`}

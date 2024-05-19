@@ -58,7 +58,7 @@ function App() {
                 <Route path="student-add" element={<CreateNewStudent />} />
                 <Route path="student-edit/:id" element={<EditFormStudent />} />
                 <Route path="createroadmap" element={<CreateRoadmap />} />
-                <Route path="roadmaps/:id" element={<MyRoadmaps />} />
+                <Route path="roadmaps" element={<MyRoadmaps />} />
                 <Route path="roadmap/steps/:id" element={<AllSteps />} />
                 <Route path="roadmap/steps/resources/:id" element={<AllResouces />} />
                 <Route path="create-steps/:id" element={<CreateSteps />} />
