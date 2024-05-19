@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import com.example.demo.annotations.AdminAction;
 import com.example.demo.models.AuthenticationResponse;
 import com.example.demo.models.Role;
 import com.example.demo.models.User;
+import com.example.demo.repository.RoadmapRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.AuthenticationService;
 
@@ -37,6 +39,9 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private RoadmapRepository roadmapRepository;
+
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody User request) {
         return ResponseEntity.ok(authService.register(request));
@@ -47,6 +52,20 @@ public class UserController {
         return ResponseEntity.ok(authService.authenticate(request));
     }
 
+    @GetMapping("/statistics")
+    public Map<String, Integer> getStatistics() {
+        Map<String, Integer> statistics = new HashMap<>();
+        int userCount = userRepository.countUsersByRole(Role.USER);
+        int adminCount = userRepository.countUsersByRole(Role.ADMIN);
+        int RoadmapCount = roadmapRepository.findAll().size();
+
+        statistics.put("userCount", userCount);
+        statistics.put("adminCount", adminCount);
+        statistics.put("RoadmapCount", RoadmapCount);
+
+        return statistics;
+    }
+    
     @GetMapping("/allusers")
     public List<User> getAllUsers() {
         return userRepository.findAll();
