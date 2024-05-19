@@ -34,5 +34,4 @@ public class Roadmap {
     @OneToMany(mappedBy = "roadmap")
     @JsonManagedReference
     private List<RoadmapSteps> steps;
-
 }
