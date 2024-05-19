@@ -15,4 +15,9 @@ public class ResourcesServiceImpl implements ResourcesService {
     public Resources createResource(Resources resource) {
         return resourcesRepository.save(resource);
     }
+
+    @Override
+    public void deleteResourceById(Long id) {
+        resourcesRepository.deleteById(id);
+    }
 }

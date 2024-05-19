@@ -1,10 +1,9 @@
 import { useState, useContext, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Store } from "../../../../store";
-import { REST_API_BASE_URL } from "../../../../App";
+import { REST_API_BASE_URL } from "../../../../../App";
 import axios from "axios";
 
-const CreateSteps = () => {
+const CreateResources = () => {
  
   const {id} = useParams();
   const [courseData, setCourseData] = useState({
@@ -55,11 +54,11 @@ const CreateSteps = () => {
     }
     try {
       const response = await axios.post(
-        `${REST_API_BASE_URL}/admin/roadmap/${id}/steps`,
+        `${REST_API_BASE_URL}/admin/step/${id}/resource`,
         courseData
       );
       console.log("Course created:", response.data);
-      setSuccessMessage("Course added successfully.");
+      setSuccessMessage(` Added Resource successfully to ${roadmap.title}.`);
       setCourseData({
         title: "",
         url: "",
@@ -70,13 +69,30 @@ const CreateSteps = () => {
     }
   };
 
+  const [roadmap, setRoadmap] = useState([]);
+  const handleFetchRoadmap = async () => {
+    try {
+      const response = await axios.get(`${REST_API_BASE_URL}/admin/step/${id}`);
+      const roadmapData = response.data;
+      setRoadmap(roadmapData);
+      setRoadmap(roadmapData);
+    } catch (error) {
+      console.error("Error fetching course data:", error);
+    }
+  };
+  console.log(roadmap)
+
+  useEffect(() => {
+    handleFetchRoadmap();
+  }, []);
+
   return (
     <div className="main">
       <div className="detailss">
         <div className="recentOrderss">
           <div className="cardHeader">
-            <h2>Create New step</h2>
-            <Link to={`/admin/roadmaps/${5}`} className="btn">
+            <h2>Create New Resouce for {roadmap.title}</h2>
+            <Link to={`/admin/roadmaps/`} className="btn">
               All Steps
             </Link>
           </div>
@@ -125,4 +141,4 @@ const CreateSteps = () => {
   );
 };
 
-export default CreateSteps;
+export default CreateResources;

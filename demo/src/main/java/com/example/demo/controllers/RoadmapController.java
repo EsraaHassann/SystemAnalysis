@@ -182,4 +182,17 @@ public class RoadmapController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdResource);
     }
 
+
+    @DeleteMapping("/delete/resource/{id}")
+    public ResponseEntity<?> deleteResource(@PathVariable Long id) {
+        try {
+             resourcesService.deleteResourceById(id);
+             return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+           
+        }
+       
+        
+    }
 }

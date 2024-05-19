@@ -31,6 +31,7 @@ import AllResouces from "./components/admin-dashboard/roadmap/steps/resources/Al
 import RoadmapByUser from "./components/admin-dashboard/aproved/RoadmapByUser";
 import StepsByUser from "./components/admin-dashboard/aproved/StepsByUser";
 import ResourcesByuser from "./components/admin-dashboard/aproved/ResourcesByuser";
+import CreateResources from "./components/admin-dashboard/roadmap/steps/resources/CreateResource";
 export const REST_API_BASE_URL = "http://localhost:9090/api";
 
 // Create a new queryClient instance
@@ -57,11 +58,18 @@ function App() {
                 <Route path="students" element={<AllStudents />} />
                 <Route path="student-add" element={<CreateNewStudent />} />
                 <Route path="student-edit/:id" element={<EditFormStudent />} />
+
+                
                 <Route path="createroadmap" element={<CreateRoadmap />} />
+                <Route path="create-steps/:id" element={<CreateSteps />} />
+                <Route path="create-resources/:id" element={<CreateResources />} />
+
+
                 <Route path="roadmaps" element={<MyRoadmaps />} />
                 <Route path="roadmap/steps/:id" element={<AllSteps />} />
                 <Route path="roadmap/steps/resources/:id" element={<AllResouces />} />
-                <Route path="create-steps/:id" element={<CreateSteps />} />
+                
+                
                 <Route path="approved/roadmap" element={< RoadmapByUser />} />
                 <Route path="approved/roadmap/steps/:id" element={< StepsByUser />} />
                 <Route path="approved/roadmap/steps/resources/:id" element={< ResourcesByuser />} />

@@ -29,7 +29,6 @@ public class RoadmapSteps {
     @ManyToOne
      @JsonBackReference
     private Roadmap roadmap;
-
-    @OneToMany
+    @OneToMany(mappedBy = "roadmapSteps")
     private List<Resources> resources;
 }

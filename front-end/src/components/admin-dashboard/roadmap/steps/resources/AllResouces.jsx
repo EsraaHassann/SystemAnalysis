@@ -27,10 +27,11 @@ import { faEdit, faEye, faPencilAlt, faTrash } from "@fortawesome/free-solid-svg
   const handleDelete = async (id,title) => {
     try {
       const response = await axios.delete(
-        `${REST_API_BASE_URL}/admin/step/${id}`
+        `${REST_API_BASE_URL}/admin/delete/resource/${id}`
       );
 
       if (response.status == 200) {
+        setRoadmaps(prevRoadmaps => prevRoadmaps.filter(roadmap => roadmap.id !== id));
         setAlert("alert alert-success")
         setSuccessMessage(`${title} Deleted Successfully`);
         console.log("roadmap deleted successfully");

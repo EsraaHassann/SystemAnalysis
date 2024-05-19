@@ -28,5 +28,6 @@ public class Resources {
 
     @JsonIgnore
     @ManyToOne
+    @JoinColumn(name = "roadmap_steps_id", nullable = false)
     private RoadmapSteps roadmapSteps;
 }

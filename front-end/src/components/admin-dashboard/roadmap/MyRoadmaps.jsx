@@ -32,6 +32,7 @@ const MyRoadmaps = () => {
       );
 
       if (response.status == 200) {
+        setRoadmaps(prevRoadmaps => prevRoadmaps.filter(roadmap => roadmap.id !== id));
         setAlert("alert alert-success")
         setSuccessMessage(`${title} Deleted Successfully`);
         console.log("roadmap deleted successfully");

@@ -31,6 +31,7 @@ import { faEdit, faEye, faPencilAlt, faTrash } from "@fortawesome/free-solid-svg
       );
 
       if (response.status == 200) {
+        setRoadmaps(prevRoadmaps => prevRoadmaps.filter(roadmap => roadmap.id !== id));
         setAlert("alert alert-success")
         setSuccessMessage(`${title} Deleted Successfully`);
         console.log("roadmap deleted successfully");
@@ -122,7 +123,7 @@ import { faEdit, faEye, faPencilAlt, faTrash } from "@fortawesome/free-solid-svg
                       </td>
                       <td>
                         <Link
-                          to={`/admin/create-steps/${roadmap.id}`}
+                          to={`/admin/create-resources/${roadmap.id}`}
                           className="link-dark me-3"
                         >
                           <FontAwesomeIcon icon={faPencilAlt} />
