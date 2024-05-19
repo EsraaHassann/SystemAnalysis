@@ -160,9 +160,15 @@ public class RoadmapController {
     }
 
     @DeleteMapping("/step/{id}")
-    public ResponseEntity<Void> deleteStep(@PathVariable Long id) {
-        roadmapStepsService.deleteStep(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> deleteStep(@PathVariable Long id) {
+        try {
+             roadmapStepsService.deleteStep(id);
+             return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.noContent().build();
+        }
+       
+       
     }
 
     @PostMapping("/step/{stepId}/resource")

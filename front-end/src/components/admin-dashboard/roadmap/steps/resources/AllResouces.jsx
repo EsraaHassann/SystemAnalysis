@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { REST_API_BASE_URL } from "../../../../App";
+import { REST_API_BASE_URL } from "../../../../../App";
 import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEye, faPencilAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 
- const AllSteps = () => {
+ const AllResouces = () => {
 
 
   const { id } = useParams();
@@ -79,13 +79,13 @@ import { faEdit, faEye, faPencilAlt, faTrash } from "@fortawesome/free-solid-svg
       <div className="detailss ">
         <div className="recentOrderss">
         <div className="cardHeader">
-            <h2>All Steps</h2>
+            <h2>All Resources</h2>
             <Link to={`/admin/roadmaps/${5}`} className="btn">
               All Roadmaps
             </Link>
             </div>
           <div >
-           
+            
 
             <table className="table table-hover text-center">
               <thead className="table-dark">
@@ -93,14 +93,14 @@ import { faEdit, faEye, faPencilAlt, faTrash } from "@fortawesome/free-solid-svg
                   <th scope="col">ID</th>
                   <th scope="col">Title</th>
 
-                  <th scope="col">Resources</th>
+                  <th scope="col">URL</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {roadmaps.length === 0 ? (
                   <tr>
-                    <td colSpan="5">No Steps found</td>
+                    <td colSpan="5">No Resources found</td>
                   </tr>
                 ) : (
                   roadmaps.map((roadmap, index) => (
@@ -109,7 +109,7 @@ import { faEdit, faEye, faPencilAlt, faTrash } from "@fortawesome/free-solid-svg
                       <td> {roadmap.title}</td>
                       <td>
                         <Link
-                          to={`/admin/roadmap/steps/resources/${roadmap.id}`}
+                          to={`/admin/create-steps/${roadmap.id}`}
                           className="link-dark me-3"
                         >
                           {roadmap.resources.length}
@@ -322,4 +322,4 @@ import { faEdit, faEye, faPencilAlt, faTrash } from "@fortawesome/free-solid-svg
 //     )
 // }
  }
-export default AllSteps;
+export default AllResouces;

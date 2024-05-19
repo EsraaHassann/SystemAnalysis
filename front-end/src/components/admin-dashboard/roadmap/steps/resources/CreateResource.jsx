@@ -9,7 +9,7 @@ const CreateSteps = () => {
   const {id} = useParams();
   const [courseData, setCourseData] = useState({
     title: "",
-    description: "",
+    url: "",
   });
 
   // Define predefined categories directly in the frontend
@@ -34,8 +34,8 @@ const CreateSteps = () => {
     switch (name) {
       case "title":
         return !value.trim() ? "Title is required." : "";
-      case "description":
-        return !value.trim() ? "Description is required." : "";
+      case "url":
+        return !value.trim() ? "url is required." : "";
       default:
         return "";
     }
@@ -62,7 +62,7 @@ const CreateSteps = () => {
       setSuccessMessage("Course added successfully.");
       setCourseData({
         title: "",
-        description: "",
+        url: "",
       });
     } catch (error) {
       console.error("Error creating course:", error);
@@ -76,7 +76,7 @@ const CreateSteps = () => {
         <div className="recentOrderss">
           <div className="cardHeader">
             <h2>Create New step</h2>
-            <Link to={`/admin/roadmap/steps/${id}`} className="btn">
+            <Link to={`/admin/roadmaps/${5}`} className="btn">
               All Steps
             </Link>
           </div>
@@ -98,18 +98,18 @@ const CreateSteps = () => {
               )}
             </div>
             <div className="mb-3">
-              <label htmlFor="description" className="form-label">
-                Description:
+              <label htmlFor="url" className="form-label">
+                url:
               </label>
               <textarea
                 className="form-control"
-                id="description"
-                name="description"
-                value={courseData.description}
+                id="url"
+                name="url"
+                value={courseData.url}
                 onChange={handleChange}
               />
-              {errors.description && (
-                <div className="error text-danger">{errors.description}</div>
+              {errors.url && (
+                <div className="error text-danger">{errors.url}</div>
               )}
             </div>
             <button type="submit" className="btn "style={{background:"#1eb2a6",color:"white"}}>

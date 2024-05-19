@@ -77,13 +77,18 @@ const MyRoadmaps = () => {
           <img src="assets/imgs/customer01.jpg" alt="" />
         </div>
       </div>
+
+      
       <div className="detailss ">
         <div className="recentOrderss">
-          <div style={{ padding: "5px" }}>
-            {/* Your message alert */}
-            <Link to="/admin/createroadmap" className="btn btn-dark mb-3">
-              Add New
+          <div class="cardHeader">
+            <h2>All Roadmaps</h2>
+            <Link to="/admin/createroadmap" className="btn">
+            Create New RoadMap
             </Link>
+          </div>
+          <div>
+          
 
             <table className="table table-hover text-center">
               <thead className="table-dark">

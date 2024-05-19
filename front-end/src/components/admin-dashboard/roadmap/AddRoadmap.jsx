@@ -112,10 +112,11 @@ const CreateRoadmap = () => {
               {errors.description && (
                 <div className="error text-danger">{errors.description}</div>
               )}
-            </div>
-            <button type="submit" className="btn btn-primary">
+            </div><div >
+
+            <button type="submit" className="btn "style={{background:"#1eb2a6",color:"white"}} >
               create new roadmap
-            </button>
+            </button></div>
             {successMessage && (
               <div className="alert alert-success mt-3">{successMessage}</div>
             )}
