@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.example.demo.annotations.AdminAction;
 import com.example.demo.models.AuthenticationResponse;
 import com.example.demo.models.Role;
 import com.example.demo.models.User;
@@ -65,7 +63,7 @@ public class UserController {
 
         return statistics;
     }
-    
+
     @GetMapping("/allusers")
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -144,14 +142,5 @@ public class UserController {
         } else {
             return null;
         }
-    }
-
-    
-
-    @AdminAction
-    @GetMapping("/jwt")
-    public ResponseEntity<HashMap<String, Object>> AngetMethodName(HttpServletRequest request) {
-        User user = getUserFromToken(request);
-        return ResponseEntity.ok(user.toHashMap());
     }
 }
