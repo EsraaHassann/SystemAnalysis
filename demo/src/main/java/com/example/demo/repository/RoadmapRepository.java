@@ -11,4 +11,5 @@ public interface RoadmapRepository extends JpaRepository<Roadmap, Long> {
     List<Roadmap> findByTitleContainingIgnoreCase(String title);
     List<Roadmap> findByApproved(boolean approved);
     List<Roadmap> findByUserId(Long userId);
+    List<Roadmap> findByApprovedFalse();
 }

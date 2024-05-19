@@ -191,8 +191,13 @@ public class RoadmapController {
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
            
-        }
-       
-        
+        }  
+    }
+
+
+    @GetMapping("/unapproved")
+    public ResponseEntity<List<Roadmap>> getUnapprovedRoadmaps() {
+        List<Roadmap> unapprovedRoadmaps = roadmapRepository.findByApprovedFalse();
+        return ResponseEntity.ok().body(unapprovedRoadmaps);
     }
 }
