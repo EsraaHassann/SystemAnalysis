@@ -83,7 +83,7 @@ import { faEdit, faEye, faPencilAlt, faTrash } from "@fortawesome/free-solid-svg
         <div className="recentOrderss">
         <div className="cardHeader">
             <h2>{roadmap.title}</h2>
-            <Link to={`/admin/roadmaps/${5}`} className="btn">
+            <Link to={`/admin/roadmaps`} className="btn">
               All Roadmaps
             </Link>
             </div>

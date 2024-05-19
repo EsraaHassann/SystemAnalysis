@@ -92,8 +92,8 @@ const CreateResources = () => {
         <div className="recentOrderss">
           <div className="cardHeader">
             <h2>Create New Resouce for {roadmap.title}</h2>
-            <Link to={`/admin/roadmaps/`} className="btn">
-              All Steps
+            <Link to={`/admin/roadmap/steps/resources/${id}`} className="btn">
+              All Resources
             </Link>
           </div>
           <form onSubmit={handleSubmit}>
@@ -129,7 +129,7 @@ const CreateResources = () => {
               )}
             </div>
             <button type="submit" className="btn "style={{background:"#1eb2a6",color:"white"}}>
-              create new roadmap
+              Create New Resource
             </button>
             {successMessage && (
               <div className="alert alert-success mt-3">{successMessage}</div>

@@ -133,7 +133,7 @@ const MyRoadmaps = () => {
                           <FontAwesomeIcon icon={faPencilAlt} />
                         </Link>
                         <Link
-                          to={`/admin/steps/${roadmap.id}`}
+                          to={`/admin/edit-roadmap/${roadmap.id}`}
                           className="link-dark me-3"
                         >
                           <FontAwesomeIcon icon={faEdit} />
