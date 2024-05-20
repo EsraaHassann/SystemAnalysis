@@ -38,6 +38,20 @@ const HAbout = () => {
       navigate("login")
     }
   }
+
+  const handelCreate = ()=>{
+    if(!userInfo){
+      alert("Please Login To Create Roadmap")
+      navigate("/login")
+  }
+  else{
+     if(userInfo.role =="ADMIN"){
+      navigate("/admin/createroadmap")
+     }
+     else if( userInfo.role =="USER"){
+      navigate("/user/createroadmap")
+     }
+  }}
   return (
     <>
       <section className="homeAbout">
@@ -73,7 +87,7 @@ const HAbout = () => {
               <div className="items ">
                 <div className="content flex "></div>
 
-                <button className="outline-btn">
+                <button className="outline-btn" onClick={handelCreate}>
                   + Create Your Own Roadmap
                 </button>
               </div>

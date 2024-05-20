@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Store } from "../../../store";
 
 const Aside_user = () => {
   const [active, setActive] = useState(false);
@@ -12,6 +13,16 @@ const Aside_user = () => {
       item.classList.remove("hovered");
     });
     e.target.classList.add("hovered");
+  };
+
+  const navigate = useNavigate();
+
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { userInfo } = state;
+  const signoutHandler = () => {
+    ctxDispatch({ type: "USER_SIGNOUT" });
+    localStorage.removeItem("userInfo");
+    navigate("/login");
   };
 
   return (
@@ -33,14 +44,9 @@ const Aside_user = () => {
               <span className="title">Home</span>
             </Link>
           </li>
+          
           <li onClick={handleMouseOver}>
-            <Link to="/user/dashboard">
-              <span className="iconn"></span>
-              <span className="title">Dashboard</span>
-            </Link>
-          </li>
-          <li onClick={handleMouseOver}>
-            <Link to="#">
+            <Link to="/user/profile">
               <span className="iconn">
                 <ion-icon name="document-text-outline"></ion-icon>
               </span>
@@ -66,8 +72,8 @@ const Aside_user = () => {
             </Link>
           </li>
           
-          <li onClick={handleMouseOver}>
-            <Link to="/">
+          <li onClick={handleMouseOver} >
+          <Link to="/login" onClick={() => signoutHandler()}>
               <span className="iconn">
                 <ion-icon name="log-out-outline"></ion-icon>
               </span>

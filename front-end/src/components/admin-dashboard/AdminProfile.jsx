@@ -1,12 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import { REST_API_BASE_URL } from "../../../App";
+import { REST_API_BASE_URL } from "../../App";
+import { Store } from "../../store";
 
-const EditFormStudent = () => {
-  const { id } = useParams();
+const AdminProfile = () => {
+  
   const [successMessage, setSuccessMessage] = useState("");
   const [studentInfo, setStudentInfo] = useState({});
+
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { userInfo } = state;
+
 
   const [UserData, setUserData] = useState({
     fname: "",
@@ -103,11 +108,11 @@ const EditFormStudent = () => {
           const response = await axios.get(
             `${REST_API_BASE_URL}/user/check-email/${value}`
           );
-          if (response.data && response.data.id != id) {
+          if (response.data && response.data.id != userInfo.id) {
             error = "Email is already in use.";
-            console.log(response.data.id !== id);
+            console.log();
             console.log(response.data.id);
-            console.log(id);
+            console.log();
           } else {
             error = ""; // Reset error if the email belongs to the current user
           }
@@ -127,7 +132,7 @@ const EditFormStudent = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${REST_API_BASE_URL}/user/getuser/${id}`
+          `${REST_API_BASE_URL}/user/getuser/${userInfo.id}`
         );
         const updatedUserData = { ...response.data, password: "" };
         setUserData(updatedUserData);
@@ -141,7 +146,7 @@ const EditFormStudent = () => {
 
   const handleStudentUpdate = () => {
     axios
-      .put(`${REST_API_BASE_URL}/user/update/${id}`, UserData)
+      .put(`${REST_API_BASE_URL}/user/update/${userInfo.id}`, UserData)
       .then((response) => {
         console.log("Student updated successfully:", response.data);
         setSuccessMessage(
@@ -181,10 +186,8 @@ const EditFormStudent = () => {
       <div className="details">
         <div class="recentOrders">
           <div class="cardHeader">
-            <h2>Edit Profile {studentInfo.fname}</h2>
-            <Link to="/admin/students" className="btn">
-              All Users
-            </Link>
+            <h2>Edit Profile </h2>
+            
           </div>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
@@ -357,4 +360,4 @@ const StudentInfo = ({ UserData }) => {
   );
 };
 
-export default EditFormStudent;
+export default AdminProfile;

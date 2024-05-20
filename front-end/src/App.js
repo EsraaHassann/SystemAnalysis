@@ -3,7 +3,6 @@ import {Outlet, Route, BrowserRouter as Router, Routes,} from "react-router-dom"
 import "./App.css";
 import ProtectedRoute from "./ProtectedRoute";
 import LOGIN from "./components/Log-in/Log-in";
-import UserProfile from "./components/UserProfile/userProfile";
 import updateProfile from "./components/UserProfile/UpdateProfile";
 
 import About from "./components/about/About";
@@ -41,6 +40,8 @@ import UserAllSteps from "./components/user-dashboard/roadmap/steps/AllSteps";
 import UserAllResouces from "./components/user-dashboard/roadmap/steps/resources/AllResouces";
 import UserEditRoadmap from "./components/user-dashboard/roadmap/EditRoadmap";
 import UserRoadmaps from "./components/user-dashboard/roadmap/MyRoadmaps";
+import UserProfile from "./components/user-dashboard/roadmap/EditFormUser";
+import AdminProfile from "./components/admin-dashboard/AdminProfile";
 export const REST_API_BASE_URL = "http://localhost:9090/api";
 
 // Create a new queryClient instance
@@ -64,7 +65,7 @@ function App() {
                   </>
                 }
               >
-                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="profile" element={<UserProfile />} />
 
 
                  <Route path="createroadmap" element={<UserCreateRoadmap />} />
@@ -89,6 +90,9 @@ function App() {
                 }
               >
                 <Route path="dashboard" element={<Dashboard />} />
+
+                <Route path="profile" element={<AdminProfile />} />
+
                 <Route path="students" element={<AllStudents />} />
                 <Route path="student-add" element={<CreateNewStudent />} />
                 <Route path="student-edit/:id" element={<EditFormStudent />} />
@@ -126,7 +130,6 @@ function App() {
                 <Route path="/contact" element={<Contact />} />
                 <Route exact path="/sign-up" element={<SIGNUP />} />
                 <Route exact path="/login" element={<LOGIN />} />
-                <Route path="/userProfile" element={<UserProfile />} />
                 <Route path="/s/:id" element={<SelectRoadmap />} />
               </Route>
             </Routes>

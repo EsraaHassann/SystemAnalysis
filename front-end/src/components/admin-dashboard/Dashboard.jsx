@@ -4,48 +4,12 @@ import ReactApexChart from "react-apexcharts";
 import { REST_API_BASE_URL } from "./../../App";
 import axios from "axios";
 
-function ApexChartt() {
-  const series = [30, 20, 15];
-
-  const options = {
-    chart: {
-      height: 350,
-      type: "pie",
-    },
-    labels: ["SWE", "INF", "ASWE"],
-    colors: ["#77B6EA", "#545454", "#FF5733"],
-    legend: {
-      position: "top",
-      horizontalAlign: "right",
-      floating: true,
-      offsetY: -25,
-      offsetX: -5,
-    },
-  };
-  return (
-    <div>
-      <div id="chart">
-        <ReactApexChart
-          options={options}
-          series={series}
-          type="pie"
-          height={350}
-        />
-      </div>
-      <div id="html-dist"></div>
-    </div>
-  );
-}
 
 function ApexChart() {
   const series = [
     {
       name: "Student",
       data: [28, 29, 33, 36, 32, 32, 33],
-    },
-    {
-      name: "Instractor",
-      data: [12, 11, 14, 18, 17, 13, 13],
     },
   ];
 
@@ -217,10 +181,7 @@ const Dashboard = () => {
 
           {/* Recent Customers */}
           <div className="recentCustomers">
-            <div className="cardHeader">
-              <h2>Most Courses Enroll</h2>
-            </div>
-            <ApexChartt />
+            
             <table>{/* Add your customer table structure here */}</table>
           </div>
         </div>

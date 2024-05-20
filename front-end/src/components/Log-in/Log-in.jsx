@@ -31,10 +31,9 @@ function LOGIN() {
         const data = await response.json();
 
         const { user, token } = data;
-
-        ctxDispatch({ type: "USER_SIGNIN", payload: user });
-        localStorage.setItem("userInfo", JSON.stringify(user));
-        console.log(user)
+        ctxDispatch({ type: "USER_SIGNIN", payload: { ...user, token } });
+        localStorage.setItem("userInfo", JSON.stringify({ ...user, token }));
+        console.log(user,token)
         navigate("/");
         
       } else {

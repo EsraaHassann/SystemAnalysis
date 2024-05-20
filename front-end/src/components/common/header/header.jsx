@@ -33,7 +33,7 @@ const Header = () => {
           case "USER":
           return (
             <li>
-              <Link to="/user/dashboard">Dashboard</Link>
+              <Link to="/user/profile">Profile</Link>
             </li>
           );
         default:
@@ -56,9 +56,6 @@ const Header = () => {
               <Link to="/">Home</Link>
             </li>
             {renderNavigationItems()}
-            <li>
-              <Link to="/allroadmaps">All Roadmaps</Link>
-            </li>
             <li>
               <Link to="/about">About</Link>
             </li>

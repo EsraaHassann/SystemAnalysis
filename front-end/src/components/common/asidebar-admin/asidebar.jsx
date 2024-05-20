@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Store } from "../../../store";
 
 const Aside_Admin = () => {
   const [active, setActive] = useState(false);
@@ -12,6 +13,16 @@ const Aside_Admin = () => {
       item.classList.remove("hovered");
     });
     e.target.classList.add("hovered");
+  };
+
+  const navigate = useNavigate();
+
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { userInfo } = state;
+  const signoutHandler = () => {
+    ctxDispatch({ type: "USER_SIGNOUT" });
+    localStorage.removeItem("userInfo");
+    navigate("/login");
   };
 
   return (
@@ -40,7 +51,7 @@ const Aside_Admin = () => {
             </Link>
           </li>
           <li onClick={handleMouseOver}>
-            <Link to="#">
+            <Link to="/admin/profile">
               <span className="iconn">
                 <ion-icon name="document-text-outline"></ion-icon>
               </span>
@@ -89,7 +100,7 @@ const Aside_Admin = () => {
           </li>
 
           <li onClick={handleMouseOver}>
-            <Link to="/">
+            <Link to="/login" onClick={() => signoutHandler()}>
               <span className="iconn">
                 <ion-icon name="log-out-outline"></ion-icon>
               </span>

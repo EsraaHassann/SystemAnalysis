@@ -111,13 +111,12 @@ import { faEdit, faEye, faPencilAlt, faTrash } from "@fortawesome/free-solid-svg
                       <td>{index + 1}</td>
                       <td> {roadmap.title}</td>
                       <td>
-                        <Link
-                          to={`/${roadmap.url}`}
+                        <a  target="_blank"
+                          href={roadmap.url}
                           className="link-dark me-3"
                         >
                           {roadmap.url}
-                          
-                        </Link>
+                        </a>
                       </td>
                       <td>
                         <Link

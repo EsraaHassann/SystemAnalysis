@@ -132,8 +132,7 @@ const AllStudents = () => {
                       <td>{item.email}</td>
                       <td>{item.role}</td>
                       <td>{item.phone}</td>
-                      <td>
-                        <Link
+                      <td>{item.role =="ADMIN"?" ":<Link
                           to={`/admin/student-edit/${item.id}`}
                           className="link-dark"
                         >
@@ -141,7 +140,8 @@ const AllStudents = () => {
                             icon={faPencilAlt}
                             className="me-3"
                           />
-                        </Link>
+                        </Link>}
+                        
                         <button
                           className="btn"
                           onClick={() => handlePromoteToAdmin(item.id)}
