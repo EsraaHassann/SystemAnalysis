@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,7 +29,12 @@ public class Roadmap {
 
     private String title;
     private String description;
-    private boolean approved;
+    
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+
 
     @ManyToOne
     private User user;

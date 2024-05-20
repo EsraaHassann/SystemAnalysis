@@ -33,6 +33,14 @@ import StepsByUser from "./components/admin-dashboard/aproved/StepsByUser";
 import ResourcesByuser from "./components/admin-dashboard/aproved/ResourcesByuser";
 import CreateResources from "./components/admin-dashboard/roadmap/steps/resources/CreateResource";
 import EditRoadmap from "./components/admin-dashboard/roadmap/EditRoadmap";
+import Aside_user from "./components/common/asidebar-user/asidebar";
+import UserCreateRoadmap from "./components/user-dashboard/roadmap/AddRoadmap";
+import UserCreateSteps from "./components/user-dashboard/roadmap/steps/CreateSteps";
+import UserCreateResources from "./components/user-dashboard/roadmap/steps/resources/CreateResource";
+import UserAllSteps from "./components/user-dashboard/roadmap/steps/AllSteps";
+import UserAllResouces from "./components/user-dashboard/roadmap/steps/resources/AllResouces";
+import UserEditRoadmap from "./components/user-dashboard/roadmap/EditRoadmap";
+import UserRoadmaps from "./components/user-dashboard/roadmap/MyRoadmaps";
 export const REST_API_BASE_URL = "http://localhost:9090/api";
 
 // Create a new queryClient instance
@@ -45,7 +53,32 @@ function App() {
       <Router>
         <QueryClientProvider client={queryClient}>
           <StoreProvider>
-            <Routes>
+
+          <Routes>
+              <Route
+                path="/user"
+                element={
+                  <>
+                    <Aside_user />
+                    <Outlet />
+                  </>
+                }
+              >
+                <Route path="dashboard" element={<Dashboard />} />
+
+
+                 <Route path="createroadmap" element={<UserCreateRoadmap />} />
+                <Route path="create-steps/:id" element={<UserCreateSteps />} />
+                <Route path="create-resources/:id" element={<UserCreateResources />} />
+
+
+                <Route path="roadmaps" element={<UserRoadmaps />} />
+                <Route path="roadmap/steps/:id" element={<UserAllSteps />}/>
+                <Route path="roadmap/steps/resources/:id" element={<UserAllResouces />} />
+                
+
+                {/* <Route path="/admin/edit-roadmap/:id" element={<UserEditRoadmap/>} /> */}
+                </Route>
               <Route
                 path="/admin"
                 element={

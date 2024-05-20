@@ -160,3 +160,17 @@ p {
     height: 80vh;
   }
 }
+
+
+
+.approved {
+  background-color: lightgreen;
+}
+
+.rejected {
+  background-color: lightcoral;
+}
+
+.pending {
+  background-color: lightskyblue;
+}

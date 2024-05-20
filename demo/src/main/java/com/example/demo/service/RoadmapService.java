@@ -1,5 +1,8 @@
 package com.example.demo.service;
 import com.example.demo.models.Roadmap;
+import com.example.demo.models.Role;
+import com.example.demo.models.Status;
+
 import java.util.List;
 
 public interface RoadmapService {
@@ -14,9 +17,11 @@ public interface RoadmapService {
 
     List<Roadmap> getAllRoadmaps();
 
+   
     List<Roadmap> getApprovedRoadmaps();
-
     List<Roadmap> getRoadmapsByUserId(Long userId);
 
-    Roadmap approveRoadmap(Long id);
+    List<Roadmap> getRoadmapsByUserRoleUser();
+    Roadmap updateRoadmapStatus(Long id, Status status);
+
 }

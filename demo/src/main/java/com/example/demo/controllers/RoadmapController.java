@@ -20,6 +20,7 @@ import com.example.demo.models.Resources;
 import com.example.demo.models.Roadmap;
 import com.example.demo.models.RoadmapSteps;
 import com.example.demo.models.Role;
+import com.example.demo.models.Status;
 import com.example.demo.models.User;
 import com.example.demo.repository.RoadmapRepository;
 import com.example.demo.repository.UserRepository;
@@ -49,30 +50,62 @@ public class RoadmapController {
     private RoadmapStepsService roadmapStepsService;
 
     @PostMapping("/create/roadmap/{userId}")
-    public ResponseEntity<?> createRoadmap(@RequestBody Roadmap roadmap, @PathVariable("userId") Long userId) {
-        User user = userRepository.findById(userId).orElse(null);
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with ID: " + userId);
-        }
-        if (user.getRole() == Role.ADMIN) {
-            roadmap.setApproved(true);
-        } else {
-            roadmap.setApproved(false);
-        }
-        
-        roadmap.setUser(user);
-        Roadmap createdRoadmap = roadmapService.createRoadmap(roadmap);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdRoadmap);
+public ResponseEntity<?> createRoadmap(@RequestBody Roadmap roadmap, @PathVariable("userId") Long userId) {
+    User user = userRepository.findById(userId).orElse(null);
+    if (user == null) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with ID: " + userId);
+    }
+    if (user.getRole() == Role.ADMIN) {
+        roadmap.setStatus(Status.APPROVED);
+    } else {
+        roadmap.setStatus(Status.PENDING);
     }
     
-    @GetMapping("/roadmaps")
-    public ResponseEntity<List<Roadmap>> getAllApprovedRoadmaps() {
-        List<Roadmap> roadmaps = roadmapService.getApprovedRoadmaps();
-        if (roadmaps.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
+    roadmap.setUser(user);
+    Roadmap createdRoadmap = roadmapService.createRoadmap(roadmap);
+    return ResponseEntity.status(HttpStatus.CREATED).body(createdRoadmap);
+}
+    
+    // @GetMapping("/roadmaps")
+    // public ResponseEntity<List<Roadmap>> getAllApprovedRoadmaps() {
+    //     List<Roadmap> roadmaps = roadmapService.getApprovedRoadmaps();
+    //     if (roadmaps.isEmpty()) {
+    //         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    //     }
+    //     return ResponseEntity.ok(roadmaps);
+    // }
+
+
+    @GetMapping("/roadmaps/approved")
+    public ResponseEntity<List<Roadmap>> getApprovedRoadmaps() {
+        List<Roadmap> approvedRoadmaps = roadmapService.getApprovedRoadmaps();
+        return ResponseEntity.ok(approvedRoadmaps);
+    }
+
+    @GetMapping("/roadmaps/by-user-role-user")
+    public ResponseEntity<List<Roadmap>> getRoadmapsByUserRoleUser() {
+        List<Roadmap> roadmaps = roadmapService.getRoadmapsByUserRoleUser();
         return ResponseEntity.ok(roadmaps);
     }
+   // getRoadmapsByUserId
+
+    @PutMapping("/roadmap/{id}/status")
+    public ResponseEntity<Roadmap> updateRoadmapStatus(@PathVariable Long id, @RequestParam String status) {
+    if (status == null) {
+        return ResponseEntity.ok().build();
+    }
+    try {
+        Status roadmapStatus = Status.valueOf(status.toUpperCase());
+        Roadmap updatedRoadmap = roadmapService.updateRoadmapStatus(id, roadmapStatus);
+        if (updatedRoadmap != null) {
+            return ResponseEntity.ok(updatedRoadmap);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    } catch (IllegalArgumentException e) {
+        return ResponseEntity.badRequest().build(); // Handle invalid status values
+    }
+}
 
     @GetMapping("/roadmap/{id}")
     public ResponseEntity<Roadmap> getRoadmapById(@PathVariable("id") Long id) {
@@ -83,14 +116,14 @@ public class RoadmapController {
         return ResponseEntity.ok(roadmap);
     }
 
-    @PutMapping("/approve/{id}")
-    public ResponseEntity<Roadmap> approveRoadmap(@PathVariable Long id) {
-        Roadmap roadmap = roadmapService.approveRoadmap(id);
-        if (roadmap == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-        return ResponseEntity.ok(roadmap);
-    }
+    // @PutMapping("/approve/{id}")
+    // public ResponseEntity<Roadmap> approveRoadmap(@PathVariable Long id) {
+    //     Roadmap roadmap = roadmapService.approveRoadmap(id);
+    //     if (roadmap == null) {
+    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    //     }
+    //     return ResponseEntity.ok(roadmap);
+    // }
 
     @PutMapping("/roadmap/{id}")
     public ResponseEntity<Roadmap> updateRoadmap(@PathVariable Long id, @RequestBody Roadmap roadmapDetails) {
@@ -195,9 +228,9 @@ public class RoadmapController {
     }
 
 
-    @GetMapping("/unapproved")
-    public ResponseEntity<List<Roadmap>> getUnapprovedRoadmaps() {
-        List<Roadmap> unapprovedRoadmaps = roadmapRepository.findByApprovedFalse();
-        return ResponseEntity.ok().body(unapprovedRoadmaps);
-    }
+    // @GetMapping("/unapproved")
+    // public ResponseEntity<List<Roadmap>> getUnapprovedRoadmaps() {
+    //     List<Roadmap> unapprovedRoadmaps = roadmapRepository.findByApprovedFalse();
+    //     return ResponseEntity.ok().body(unapprovedRoadmaps);
+    // }
 }

@@ -1,8 +1,5 @@
 import {
-    faEdit,
     faEye,
-    faPencilAlt,
-    faTrash
   } from "@fortawesome/free-solid-svg-icons";
   import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
   import axios from "axios";
@@ -51,13 +48,38 @@ import {
   
     const handleCourseFetch = async () => {
       try {
-        const response = await axios.get(`${REST_API_BASE_URL}/admin/roadmaps`);
+        const response = await axios.get(`${REST_API_BASE_URL}/admin/roadmaps/by-user-role-user`);
         const roadmapData = response.data;
         setRoadmaps(roadmapData);
       } catch (error) {
         console.error("Error fetching course data:", error);
       }
     };
+
+    const handleStatusChange = async (id, status) => {
+      try {
+        const response = await axios.put(
+          `${REST_API_BASE_URL}/admin/roadmap/${id}/status`, 
+         status, 
+           { headers: { 'Content-Type': 'application/json' } }
+        );
+        if (response.status === 200) {
+          setSuccessMessage(`Roadmap status updated to ${status}`);
+          setAlert("alert alert-success");
+          handleCourseFetch(); // Refresh the roadmap list
+        } else {
+          console.log(status);
+          console.error("Failed to update status");
+          setAlert("alert alert-danger");
+          setSuccessMessage("Failed to update status");
+        }
+      } catch (error) {
+        console.log(status);
+        console.error("Error updating status:", error.message);
+      }
+    };
+    
+  
   
     useEffect(() => {
       handleCourseFetch();
@@ -100,7 +122,7 @@ import {
                     <th scope="col" > Description</th>
   
                     <th scope="col">Steps</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -125,24 +147,14 @@ import {
                           </Link>
                         </td>
                         <td>
-                          <Link
-                            to={`/admin/create-steps/${roadmap.id}`}
-                            className="link-dark me-3"
-                          >
-                            <FontAwesomeIcon icon={faPencilAlt} />
-                          </Link>
-                          {/* <Link
-                            to={`/admin/steps/${roadmap.id}`}
-                            className="link-dark me-3"
-                          >
-                            <FontAwesomeIcon icon={faEdit} />
-                          </Link>
-                          <button
-                            className="btn"
-                            onClick={() => handleDelete(roadmap.id,roadmap.title)}
-                          >
-                            <FontAwesomeIcon icon={faTrash} />
-                          </button> */}
+                        <select
+                          value={roadmap.status}
+                          onChange={(e) => handleStatusChange(roadmap.id, e.target.value)}
+                        >
+                          <option value="PENDING">Pending</option>
+                          <option value="APPROVED">Approved</option>
+                          <option value="REJECTED">Rejected</option>
+                        </select>
                         </td>
                       </tr>
                     ))

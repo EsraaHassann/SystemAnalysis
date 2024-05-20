@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.models.Roadmap;
+import com.example.demo.models.Role;
+import com.example.demo.models.Status;
 import com.example.demo.repository.RoadmapRepository;
 
 @Service
@@ -33,7 +35,7 @@ public class RoadmapServiceImpl implements RoadmapService {
             Roadmap existingRoadmap = optionalRoadmap.get();
             existingRoadmap.setTitle(roadmap.getTitle());
             existingRoadmap.setDescription(roadmap.getDescription());
-            existingRoadmap.setApproved(roadmap.isApproved());
+            existingRoadmap.setStatus(roadmap.getStatus());
             existingRoadmap.setSteps(roadmap.getSteps());
             return roadmapRepository.save(existingRoadmap);
         } else {
@@ -51,23 +53,31 @@ public class RoadmapServiceImpl implements RoadmapService {
         return roadmapRepository.findAll();
     }
 
-    @Override
-    public List<Roadmap> getApprovedRoadmaps() {
-        return roadmapRepository.findByApproved(true);
-    }
-
+    
     @Override
     public List<Roadmap> getRoadmapsByUserId(Long userId) {
         return roadmapRepository.findByUserId(userId);
     }
 
     @Override
-    public Roadmap approveRoadmap(Long id) {
-        Roadmap roadmap = roadmapRepository.findById(id).orElse(null);
-        if (roadmap != null) {
-            roadmap.setApproved(true);
-            roadmapRepository.save(roadmap);
+    public List<Roadmap> getApprovedRoadmaps() {
+        return roadmapRepository.findByStatus(Status.APPROVED);
+    }
+    @Override
+    public List<Roadmap> getRoadmapsByUserRoleUser() {
+        return roadmapRepository.findAllByUserRoleUser();
+    }
+    @Override
+    public Roadmap updateRoadmapStatus(Long id, Status status) {
+        Optional<Roadmap> optionalRoadmap = roadmapRepository.findById(id);
+        if (optionalRoadmap.isPresent()) {
+            Roadmap roadmap = optionalRoadmap.get();
+            roadmap.setStatus(status);
+            return roadmapRepository.save(roadmap);
+        } else {
+            return null;
         }
-        return roadmap;
     }
 }
+
+

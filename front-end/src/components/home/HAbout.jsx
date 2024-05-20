@@ -16,7 +16,7 @@ const HAbout = () => {
   const [roadmaps, setRoadmaps] = useState([]);
   const handleFetchRoadmaps = async () => {
     try {
-      const response = await axios.get(`${REST_API_BASE_URL}/admin/roadmaps`);
+      const response = await axios.get(`${REST_API_BASE_URL}/admin/roadmaps/approved`);
       const roadmapData = response.data;
       setRoadmaps(roadmapData);
     } catch (error) {

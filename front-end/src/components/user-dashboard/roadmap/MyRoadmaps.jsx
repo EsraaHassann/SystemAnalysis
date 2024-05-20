@@ -6,17 +6,19 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { REST_API_BASE_URL } from "../../../App";
+import { Store } from "../../../store";
 
-const MyRoadmaps = () => {
+const UserRoadmaps = () => {
   const { id } = useParams();
   const [roadmaps, setRoadmaps] = useState([]);
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
   const [alert, setAlert] = useState("");
-
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { userInfo } = state;
   useEffect(() => {
     const timer = setTimeout(() => {
       setSuccessMessage("");
@@ -49,7 +51,7 @@ const MyRoadmaps = () => {
 
   const handleCourseFetch = async () => {
     try {
-      const response = await axios.get(`${REST_API_BASE_URL}/admin/roadmaps/approved`);
+      const response = await axios.get(`${REST_API_BASE_URL}/admin/user/${userInfo.id}/roadmaps`);
       const roadmapData = response.data;
       setRoadmaps(roadmapData);
     } catch (error) {
@@ -61,6 +63,7 @@ const MyRoadmaps = () => {
     handleCourseFetch();
   }, []);
 
+  
   return (
     <div className={`main`}>
       <div className="topbar">
@@ -84,7 +87,7 @@ const MyRoadmaps = () => {
         <div className="recentOrderss">
           <div class="cardHeader">
             <h2>All Roadmaps</h2>
-            <Link to="/admin/createroadmap" className="btn">
+            <Link to="/user/createroadmap" className="btn">
             Create New RoadMap
             </Link>
           </div>
@@ -101,6 +104,8 @@ const MyRoadmaps = () => {
 
                   <th scope="col">Steps</th>
                   <th scope="col">Actions</th>
+                  <th scope="col">Stutes</th>
+
                 </tr>
               </thead>
               <tbody>
@@ -118,7 +123,7 @@ const MyRoadmaps = () => {
                       <td> {roadmap.description}</td>
                       <td>
                         <Link
-                          to={`/admin/roadmap/steps/${roadmap.id}`}
+                          to={`/user/roadmap/steps/${roadmap.id}`}
                           className="link-dark me-3"
                         >
                           {roadmap.steps.length}
@@ -127,13 +132,13 @@ const MyRoadmaps = () => {
                       </td>
                       <td>
                         <Link
-                          to={`/admin/create-steps/${roadmap.id}`}
+                          to={`/user/create-steps/${roadmap.id}`}
                           className="link-dark me-3"
                         >
                           <FontAwesomeIcon icon={faPencilAlt} />
                         </Link>
                         <Link
-                          to={`/admin/edit-roadmap/${roadmap.id}`}
+                          to={`/user/edit-roadmap/${roadmap.id}`}
                           className="link-dark me-3"
                         >
                           <FontAwesomeIcon icon={faEdit} />
@@ -144,7 +149,8 @@ const MyRoadmaps = () => {
                         >
                           <FontAwesomeIcon icon={faTrash} />
                         </button>
-                      </td>
+                      </td >
+                      <td>{roadmap.status}</td>
                     </tr>
                   ))
                 )}
@@ -160,4 +166,4 @@ const MyRoadmaps = () => {
   );
 };
 
-export default MyRoadmaps;
+export default UserRoadmaps;
