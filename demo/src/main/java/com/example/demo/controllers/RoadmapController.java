@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -66,14 +67,14 @@ public ResponseEntity<?> createRoadmap(@RequestBody Roadmap roadmap, @PathVariab
     return ResponseEntity.status(HttpStatus.CREATED).body(createdRoadmap);
 }
     
-    // @GetMapping("/roadmaps")
-    // public ResponseEntity<List<Roadmap>> getAllApprovedRoadmaps() {
-    //     List<Roadmap> roadmaps = roadmapService.getApprovedRoadmaps();
-    //     if (roadmaps.isEmpty()) {
-    //         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    //     }
-    //     return ResponseEntity.ok(roadmaps);
-    // }
+    @GetMapping("/roadmaps")
+    public ResponseEntity<List<Roadmap>> getAllApprovedRoadmaps() {
+        List<Roadmap> roadmaps = roadmapService.getAllRoadmaps();
+        if (roadmaps.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.ok(roadmaps);
+    }
 
 
     @GetMapping("/roadmaps/approved")
@@ -134,13 +135,14 @@ public ResponseEntity<?> createRoadmap(@RequestBody Roadmap roadmap, @PathVariab
         return ResponseEntity.ok(updatedRoadmap);
     }
 
+  
+     @Transactional
     @DeleteMapping("/roadmap/{id}")
     public ResponseEntity<?> deleteRoadmap(@PathVariable Long id) {
         try {
              roadmapService.deleteRoadmap(id);
              return  ResponseEntity.ok().build();
         } catch (Exception e) {
-            
              return ResponseEntity.noContent().build();
         }
     }

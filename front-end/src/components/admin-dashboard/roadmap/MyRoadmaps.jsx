@@ -40,7 +40,7 @@ const MyRoadmaps = () => {
       } else {
         console.error("Failed to delete item");
         setAlert("alert alert-danger")
-        setSuccessMessage(`Before Delete (${title}) check all Steps and Resources Deleted`);
+        setSuccessMessage(`If you wanted to delete (${title}) with steps and Resources Click Double`);
       }
     } catch (error) {
       console.error("Error deleting item:", error.message);
@@ -49,13 +49,37 @@ const MyRoadmaps = () => {
 
   const handleCourseFetch = async () => {
     try {
-      const response = await axios.get(`${REST_API_BASE_URL}/admin/roadmaps/approved`);
+      const response = await axios.get(`${REST_API_BASE_URL}/admin/roadmaps`);
       const roadmapData = response.data;
       setRoadmaps(roadmapData);
     } catch (error) {
       console.error("Error fetching course data:", error);
     }
   };
+
+  const handleStatusChange = async (id, status) => {
+    try {
+      const response = await axios.put(
+        `${REST_API_BASE_URL}/admin/roadmap/${id}/status`, 
+       status, 
+         { headers: { 'Content-Type': 'application/json' } }
+      );
+      if (response.status === 200) {
+        setSuccessMessage(`Roadmap status updated to ${status}`);
+        setAlert("alert alert-success");
+        handleCourseFetch(); // Refresh the roadmap list
+      } else {
+        console.log(status);
+        console.error("Failed to update status");
+        setAlert("alert alert-danger");
+        setSuccessMessage("Failed to update status");
+      }
+    } catch (error) {
+      console.log(status);
+      console.error("Error updating status:", error.message);
+    }
+  };
+  
 
   useEffect(() => {
     handleCourseFetch();
@@ -101,6 +125,7 @@ const MyRoadmaps = () => {
 
                   <th scope="col">Steps</th>
                   <th scope="col">Actions</th>
+                  <th scope="col"> Ststus</th>
                 </tr>
               </thead>
               <tbody>
@@ -140,11 +165,23 @@ const MyRoadmaps = () => {
                         </Link>
                         <button
                           className="btn"
-                          onClick={() => handleDelete(roadmap.id,roadmap.title)}
+                          onClick={() => handleDelete(roadmap.id,roadmap.title)
+
+                          }
                         >
                           <FontAwesomeIcon icon={faTrash} />
                         </button>
                       </td>
+                      <td>
+                        <select
+                          value={roadmap.status}
+                          onChange={(e) => handleStatusChange(roadmap.id, e.target.value)}
+                        >
+                          <option value="PENDING">Pending</option>
+                          <option value="APPROVED">Approved</option>
+                          <option value="REJECTED">Rejected</option>
+                        </select>
+                        </td>
                     </tr>
                   ))
                 )}

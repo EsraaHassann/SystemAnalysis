@@ -13,7 +13,6 @@ public interface RoadmapService {
 
     Roadmap updateRoadmap(Roadmap roadmap, Long id);
 
-    void deleteRoadmap(Long id);
 
     List<Roadmap> getAllRoadmaps();
 
@@ -24,4 +23,5 @@ public interface RoadmapService {
     List<Roadmap> getRoadmapsByUserRoleUser();
     Roadmap updateRoadmapStatus(Long id, Status status);
 
+    void deleteRoadmap(Long id);
 }

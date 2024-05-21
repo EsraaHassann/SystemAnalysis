@@ -7,15 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.models.Roadmap;
-import com.example.demo.models.Role;
 import com.example.demo.models.Status;
+import com.example.demo.repository.ResourcesRepository;
 import com.example.demo.repository.RoadmapRepository;
+import com.example.demo.repository.RoadmapStepsRepository;
 
 @Service
 public class RoadmapServiceImpl implements RoadmapService {
 
     @Autowired
     private RoadmapRepository roadmapRepository;
+
+    @Autowired
+    private RoadmapStepsRepository roadmapStepRepository ;
+    @Autowired
+    private ResourcesRepository resourceRepository;
+
 
     @Override
     public Roadmap createRoadmap(Roadmap roadmap) {
@@ -43,10 +50,7 @@ public class RoadmapServiceImpl implements RoadmapService {
         }
     }
 
-    @Override
-    public void deleteRoadmap(Long id) {
-        roadmapRepository.deleteById(id);
-    }
+    
 
     @Override
     public List<Roadmap> getAllRoadmaps() {
@@ -77,6 +81,24 @@ public class RoadmapServiceImpl implements RoadmapService {
         } else {
             return null;
         }
+    }
+    @Override
+    public void deleteRoadmap(Long id) {
+        Roadmap roadmap = roadmapRepository.findById(id)
+                .orElseThrow(null);
+
+        // Delete associated steps
+        roadmap.getSteps().forEach(step -> {
+            step.getResources().forEach(resource -> {
+                // Delete resources
+                resourceRepository.delete(resource);
+            });
+            // Delete steps
+            roadmapStepRepository.delete(step);
+        });
+
+        // Delete roadmap
+        roadmapRepository.delete(roadmap);
     }
 }
 

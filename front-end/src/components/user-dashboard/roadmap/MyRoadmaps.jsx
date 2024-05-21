@@ -98,7 +98,7 @@ const UserRoadmaps = () => {
               <thead className="table-dark">
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">Author</th>
+                  
                   <th scope="col">Title</th>
                   <th scope="col">Description</th>
 
@@ -116,8 +116,7 @@ const UserRoadmaps = () => {
                 ) : (
                   roadmaps.map((roadmap, index) => (
                     <tr key={roadmap.id}>
-                      <td>{index + 1}</td>
-                      <td>{roadmap.user.role == "USER"? "(U)":"(A)"} {roadmap.user.fname}</td>
+                      <td>{index + 1}</td>                    
 
                       <td> {roadmap.title}</td>
                       <td> {roadmap.description}</td>
