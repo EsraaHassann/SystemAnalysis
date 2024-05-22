@@ -1,9 +1,7 @@
 package com.example.demo.service;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.demo.models.AuthenticationResponse;
 import com.example.demo.models.Role;
@@ -16,11 +14,7 @@ public class AuthenticationService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
     private JwtService jwtService;
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(User request) {
 
@@ -34,7 +28,8 @@ public class AuthenticationService {
         user.setEmail(request.getEmail());
         user.setGender(request.getGender());
         user.setDob(request.getDob());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        String encoddedpassword = BCrypt.hashpw(request.getPassword(), BCrypt.gensalt(12));
+        user.setPassword(encoddedpassword);
         user.setRole(Role.USER);
         user = userRepository.save(user);
 
@@ -44,11 +39,11 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(User request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()));
-        User user = userRepository.findByEmail(request.getEmail()).orElseThrow();
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        if (!BCrypt.checkpw(request.getPassword(), user.getPassword())) {
+            throw new RuntimeException("Invalid credentials");
+        }
         String jwt = jwtService.generateToken(user);
         return new AuthenticationResponse(jwt, user);
     }

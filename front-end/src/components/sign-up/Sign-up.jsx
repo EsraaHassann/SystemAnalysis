@@ -127,7 +127,7 @@ const SignUp = () => {
         NavigatePage();
       })
       .catch((error) => {
-        console.error("Error creating student:", error);
+        console.error("Error creating user:", error);
       });
   };
 

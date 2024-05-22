@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,8 +35,6 @@ public class UserController {
     private AuthenticationService authService;
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private RoadmapRepository roadmapRepository;
@@ -72,7 +71,8 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<User> createuser(@RequestBody User user) {
         user.setRole(Role.USER);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        String encoddedpassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12));
+        user.setPassword(encoddedpassword);
         User saveduser = userRepository.save(user);
         return ResponseEntity.ok(saveduser);
     }
@@ -126,7 +126,8 @@ public class UserController {
             repouser.setGender(user.getGender());
             repouser.setDob(user.getDob());
             if (!user.getPassword().isEmpty()) {
-                repouser.setPassword(passwordEncoder.encode(user.getPassword()));
+                String encoddedpassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12));
+                user.setPassword(encoddedpassword);
             }
             userRepository.save(repouser);
             return repouser;

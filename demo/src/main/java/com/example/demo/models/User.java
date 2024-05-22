@@ -97,5 +97,4 @@ public class User implements UserDetails {
         map.put("role", this.role);
         return map;
     }
-
 }
